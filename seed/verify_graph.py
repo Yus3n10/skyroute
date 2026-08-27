@@ -97,12 +97,12 @@ async def main() -> int:
 
     # The alliance filter must hold on EVERY leg, which is the whole point.
     for alliance in queries.ALLIANCE_IDS:
-        filtered = await queries.itineraries(busiest, target, 3, alliance, limit=10)
+        filtered = await queries.itineraries(busiest, target, queries.MAX_LEGS, alliance, limit=10)
         check(f"alliance filter {alliance} holds on every leg",
               all(all(l["alliance"] == alliance for l in i["legs"]) for i in filtered),
               [[l["alliance"] for l in i["legs"]] for i in filtered[:3]])
 
-    comparison = await queries.alliance_comparison(busiest, target, 3)
+    comparison = await queries.alliance_comparison(busiest, target, queries.MAX_LEGS)
     check("alliance comparison returns at most one row per alliance",
           len({row["alliance"] for row in comparison}) == len(comparison), comparison)
     check("alliance comparison rows are internally consistent",
@@ -117,15 +117,15 @@ async def main() -> int:
         check("fewest_stops starts and ends correctly",
               route["stops"][0]["iata"] == busiest and route["stops"][-1]["iata"] == target)
 
-    reachable = await queries.reach(busiest, 2)
+    reachable = await queries.reach(busiest, queries.MAX_LEGS)
     check("reach returns countries", len(reachable) > 0, len(reachable))
     check("reach is ordered by fewest legs",
           all(reachable[i]["fewestLegs"] <= reachable[i + 1]["fewestLegs"]
               for i in range(len(reachable) - 1)))
     check("reach leg counts are within bounds",
-          all(1 <= r["fewestLegs"] <= 2 for r in reachable),
+          all(1 <= r["fewestLegs"] <= queries.MAX_LEGS for r in reachable),
           {r["fewestLegs"] for r in reachable})
-    print(f"        {busiest} reaches {len(reachable)} countries within 2 legs")
+    print(f"        {busiest} reaches {len(reachable)} countries within {queries.MAX_LEGS} legs")
 
     alliances = await queries.alliances()
     check("three alliances are loaded", len(alliances) == 3, [a["id"] for a in alliances])
@@ -133,8 +133,9 @@ async def main() -> int:
         members = await queries.airlines_for_alliance(alliance["id"])
         check(f"{alliance['id']} has member airlines", len(members) > 0, len(members))
 
-    # Bad input must be refused before it reaches the database.
-    for bad in (0, 4, 99):
+    # Bad input must be refused before it reaches the database. Derived from the
+    # configured cap so this keeps testing the real boundary if the cap moves.
+    for bad in (0, queries.MIN_LEGS - 1, queries.MAX_LEGS + 1, 99):
         try:
             await queries.itineraries(busiest, target, bad)
             check(f"leg bound {bad} rejected", False, "no error raised")

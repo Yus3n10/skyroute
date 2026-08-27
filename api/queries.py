@@ -17,10 +17,13 @@ from typing import Any
 
 from . import db
 
-# Real itineraries almost never exceed two stops, and an unbounded traversal over
-# hub airports with hundreds of edges would be unkind to a 0.5 vCPU free instance.
-# Three legs is both realistic and a cost ceiling.
-MIN_LEGS, MAX_LEGS = 1, 3
+# Measured, not guessed. On the free c0 tier (0.5 vCPU, 256 MB), a two-stop
+# traversal between two hub airports enumerates enough paths to exhaust the
+# instance: ATL (86 destinations) to AMS (83) answered in 464 ms at one stop and
+# killed the server at two, after which even trivial queries were refused for tens
+# of seconds. One stop is also what covers essentially every real itinerary, so the
+# ceiling costs the product almost nothing and protects everything else.
+MIN_LEGS, MAX_LEGS = 1, 2
 
 ALLIANCE_IDS = ("star-alliance", "oneworld", "skyteam")
 

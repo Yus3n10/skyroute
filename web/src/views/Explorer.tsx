@@ -184,7 +184,6 @@ export default function Explorer() {
                   >
                     <option value={1}>Direct flights only</option>
                     <option value={2}>Up to 1 stop</option>
-                    <option value={3}>Up to 2 stops</option>
                   </select>
                 </Field>
               </div>

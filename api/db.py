@@ -11,10 +11,15 @@ import logging
 import os
 from typing import Any
 
-from neo4j import AsyncDriver, AsyncGraphDatabase
+from neo4j import AsyncDriver, AsyncGraphDatabase, Query
 from neo4j.exceptions import AuthError, Neo4jError, ServiceUnavailable
 
-log = logging.getLogger("punishlab.db")
+log = logging.getLogger("skyroute.db")
+
+# Free-tier c0 is 0.5 vCPU and 256 MB. Every healthy query in this app answers well
+# under a second, so anything still running at 10s is pathological and worth killing
+# before it costs the instance.
+QUERY_TIMEOUT_SECONDS = 10
 
 _driver: AsyncDriver | None = None
 
@@ -101,7 +106,13 @@ async def run(cypher: str, **params: Any) -> list[dict[str, Any]]:
             "the instance is running."
         )
     try:
-        records, _, _ = await _driver.execute_query(cypher, params, database_="neo4j")
+        # Every query carries a server-side transaction timeout. Without one, a single
+        # expensive traversal can hold the instance until it runs out of memory and
+        # starts refusing connections, which takes the whole app down rather than just
+        # that request. The server aborts at the deadline and the caller gets a 503.
+        records, _, _ = await _driver.execute_query(
+            Query(cypher, timeout=QUERY_TIMEOUT_SECONDS), params, database_="neo4j"
+        )
         return [r.data() for r in records]
     except (ServiceUnavailable, AuthError) as exc:
         raise DatabaseUnavailable(f"CognoDB is unreachable: {exc}") from exc

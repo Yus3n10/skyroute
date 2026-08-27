@@ -57,19 +57,19 @@ graph database to build them alone.
 
 ### The part that does
 
-Itinerary search. Ask for every way to get from A to B in at most three flights,
+Itinerary search. Ask for every way to get from A to B in at most two flights,
 where every leg is on the same alliance, ranked by total distance flown. In Cypher
 that is one pattern plus one predicate:
 
 ```cypher
-MATCH route = (o:Airport {iata: $origin})-[:FLIES_TO*1..3]->(d:Airport {iata: $destination})
+MATCH route = (o:Airport {iata: $origin})-[:FLIES_TO*1..2]->(d:Airport {iata: $destination})
 WHERE ALL(r IN relationships(route) WHERE r.alliance = $alliance)
 ```
 
 Four things make that hard relationally:
 
 **1. The path length is not known when you write the query.** An itinerary might be
-one flight or three. SQL needs a recursive CTE that self-joins the route table once
+one flight or two. SQL needs a recursive CTE that self-joins the route table once
 per level, with the depth bound living inside the recursion rather than in the
 pattern.
 
@@ -149,6 +149,22 @@ graph LR
 `FLIES_TO` is the load-bearing edge. There is one per airline per directed pair, so
 a route flown by three airlines is three edges - which is what makes "give me the
 oneworld version of this itinerary" a filter rather than a different query.
+
+### Scale
+
+| | |
+|---|---|
+| Airports | 1,205 |
+| Airlines | 441 |
+| Countries | 158 |
+| Alliances | 3 |
+| `FLIES_TO` routes | 6,472 |
+| **Total nodes / relationships** | **1,807 / 7,735** |
+
+Assembled from 9,694 airborne callsigns, of which 7,632 resolved to a route. Routes
+split by partnership: 3,952 on airlines in no alliance, 962 Star Alliance, 794
+oneworld, 764 SkyTeam. Busiest airports in the sample are ATL (86 destinations),
+AMS (83), JFK (79) and ORD (76).
 
 ### One deliberate denormalisation
 
@@ -351,7 +367,7 @@ All of them live in [`api/queries.py`](api/queries.py).
 ### Itinerary search — the multi-hop traversal
 
 ```cypher
-MATCH route = (o:Airport {iata: toUpper($origin)})-[:FLIES_TO*1..3]->(d:Airport {iata: toUpper($destination)})
+MATCH route = (o:Airport {iata: toUpper($origin)})-[:FLIES_TO*1..2]->(d:Airport {iata: toUpper($destination)})
 WHERE ($alliance IS NULL OR ALL(r IN relationships(route) WHERE r.alliance = $alliance))
 WITH nodes(route) AS stops, relationships(route) AS legs
 WHERE ALL(i IN range(0, size(stops) - 2) WHERE NOT stops[i] IN stops[i + 1..])
@@ -362,7 +378,7 @@ LIMIT $limit
 ```
 
 The `ALL(...)` on line two is the alliance rule. The `ALL(...)` on line four is the
-cycle guard — no airport twice — which is O(n²) over a path of at most four nodes,
+cycle guard — no airport twice — which is O(n²) over a path of at most three nodes,
 so the quadratic is free.
 
 ### Alliance comparison — grouping by a property of the whole path
@@ -414,7 +430,7 @@ Rather than format user input into Cypher, `ITINERARY_QUERIES` and
 the handler looks one up by an integer Pydantic has already validated:
 
 ```python
-ITINERARY_QUERIES = {legs: _ITINERARY_TEMPLATE.format(legs=legs) for legs in range(1, 4)}
+ITINERARY_QUERIES = {legs: _ITINERARY_TEMPLATE.format(legs=legs) for legs in range(1, 3)}
 ```
 
 The user's number selects a query. It never becomes part of one. The alliance
@@ -476,10 +492,30 @@ types means the next unlisted one is an outage. The driver is also only publishe
 to the module global *after* connectivity verifies, so a half-built driver can
 never be picked up by a later request.
 
-**Traversal cost.** Itineraries are capped at three legs. Two stops covers
-essentially every real itinerary, and an unbounded traversal across hub airports
-with hundreds of edges each would be unkind to a burstable 0.5 vCPU instance. The
-cap is a product decision and a cost ceiling at the same time.
+**Traversal depth is capped at two flights, and that number was measured.**
+
+The first version allowed three. On the full dataset that turned out to be enough
+to take the database down, not merely to run slowly. Enumerating every three-hop
+path between two hub airports (ATL has 86 destinations, AMS has 83) exhausted the
+256 MB instance, which then started refusing connections. Trivial queries failed for
+tens of seconds afterwards, so one visitor exploring the demo would have broken it
+for everyone.
+
+The same pair at one stop answers in 464 ms. So the ceiling costs the product
+almost nothing, since a two-stop itinerary between two major hubs is not a route
+anybody would fly, and it is the difference between a demo that survives contact
+with visitors and one that does not.
+
+Two changes came out of it:
+
+- `MIN_LEGS, MAX_LEGS = 1, 2` in `queries.py`, with the measurement recorded beside it.
+- Every query now carries a **10 second server-side transaction timeout**
+  (`Query(cypher, timeout=...)` in `db.py`). Healthy queries here finish well under
+  a second, so anything still running at ten is pathological. The server aborts it
+  and the caller gets a 503, instead of one query costing the whole instance.
+
+Re-tested afterwards across every hub-to-hub pair at maximum depth: 416-585 ms,
+zero failures, instance healthy throughout. Slowest query in the app is 893 ms.
 
 **Idempotent seeding.** The loader `MERGE`s on unique keys, so re-running it updates
 the graph rather than duplicating it. Constraint and index DDL is wrapped: if a

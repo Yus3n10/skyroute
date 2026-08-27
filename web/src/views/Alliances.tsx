@@ -46,7 +46,7 @@ export default function Alliances({ airlines }: { airlines: Map<string, Airline>
 
   const ready = Boolean(origin && destination && origin.iata !== destination.iata);
   const comparison = useAsync(
-    () => api.compareAlliances(origin!.iata, destination!.iata, 3),
+    () => api.compareAlliances(origin!.iata, destination!.iata, 2),
     [origin?.iata, destination?.iata],
     ready,
   );

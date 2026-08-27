@@ -34,7 +34,6 @@ import AirportPicker from "../AirportPicker";
 const LEG_OPTIONS = [
   { value: 1, label: "Direct flights only" },
   { value: 2, label: "Up to 1 stop" },
-  { value: 3, label: "Up to 2 stops" },
 ];
 
 const ALLIANCE_OPTIONS = [
