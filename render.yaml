@@ -7,6 +7,14 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
+    # /api/health answers 200 with {"status":"degraded"} when the database is
+    # unreachable, rather than failing. That is deliberate: this path is what Render
+    # uses to decide whether the service is alive, and a health check that fails on a
+    # database outage would have Render restart the container - reintroducing the
+    # crash-loop the startup handling exists to prevent, and taking the UI down with
+    # it. The process is genuinely serving: the frontend loads and every data
+    # endpoint returns an honest 503. Read the `database` field, not the status code,
+    # to tell whether the graph is actually reachable.
     healthCheckPath: /api/health
     envVars:
       - key: COGNODB_URI

@@ -318,6 +318,30 @@ build compiles the frontend and FastAPI serves `web/dist` alongside `/api`. One
 service, one URL, no CORS. Set `COGNODB_URI` and `COGNODB_PASSWORD` as environment
 variables in the Render dashboard — never in the repo.
 
+The image was built and run locally before deploying, and the checks that matter
+were verified inside the container rather than assumed:
+
+| Check | Result |
+|---|---|
+| Serves the UI, assets and API | 200, and a live query against CognoDB returns results |
+| Runs as a non-root user | `uid=10001(app)` |
+| No credentials baked into the image | no `.env` anywhere on the filesystem |
+| Input validation still enforced | `maxLegs=9` → 422, unknown airport → 404 |
+| **Wrong `COGNODB_URI`** | container stays up, **0 restarts**, UI still served, data endpoints return 503 |
+| Image size | 267 MB |
+
+That last row is the one worth deploying on. A misconfigured environment variable is
+the likeliest thing to go wrong on a first deploy, and it does not take the service
+down.
+
+**A note on the health check.** `/api/health` answers `200` with
+`{"status": "degraded", "database": "down"}` when the graph is unreachable, rather
+than failing. That is deliberate. Render uses `healthCheckPath` to decide whether the
+service is alive; a health check that failed on a database outage would have Render
+restart the container, reintroducing the exact crash-loop the startup handling exists
+to prevent, and taking the working frontend down with it. Read the `database` field,
+not the status code, to tell whether the graph is actually reachable.
+
 ---
 
 ## The main queries
