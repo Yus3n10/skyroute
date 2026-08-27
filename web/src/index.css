@@ -1,90 +1,174 @@
 @import "tailwindcss";
 
-/* Design tokens. Semantic names only - no component reaches for a raw hex.
-   The alliance colours carry meaning rather than decoration, so every place they
-   are used also names the alliance in text: the hue is reinforcement, never the
-   only signal. */
+/* SkyRoute is printed matter, not a dashboard.
+ *
+ * The reference is airmail: cream stock, hard ink rules, the red-and-blue
+ * par-avion stripe, and a boarding pass with a perforated stub. That gives the
+ * interface a reason for every decision - the mono is there because airports have
+ * always been set in mono, the heavy rules are there because tickets are printed
+ * with them, and the serif is there because paper has a voice.
+ *
+ * Every foreground token here was measured against its real background with a
+ * WCAG contrast script, not eyeballed. That caught a genuine failure: ink-faint
+ * started at #8b8172, which looked right on cream and measured 3.59:1 - under the
+ * 4.5:1 body-text floor, on all 151 captions. It is now #6f665a, and ink-dim was
+ * darkened with it so the two levels stay distinguishable. The alliance colours
+ * are darkened from their brand values for the same reason.
+ */
 @theme {
-  --color-bg: #0a1020;
-  --color-surface: #121a2e;
-  --color-surface-2: #1b2440;
-  --color-line: #253052;
-  --color-line-bright: #35426e;
+  --color-paper: #fbf7f0;
+  --color-paper-2: #f2ece0;
+  --color-paper-3: #e8e0d0;
 
-  --color-ink: #e8ecf7;
-  --color-ink-dim: #9aa5c4;
-  --color-ink-faint: #6a7699;
+  --color-ink: #171310;
+  --color-ink-dim: #4a423a;
+  --color-ink-faint: #6f665a;
 
-  --color-brand: #38bdf8;
-  --color-brand-bright: #7dd3fc;
-  --color-brand-dim: #0c4a6e;
+  --color-rule: #171310;
+  --color-rule-soft: #d8cfbe;
 
-  --color-star: #fbbf24;
-  --color-oneworld: #60a5fa;
-  --color-skyteam: #c084fc;
-  --color-unaligned: #64748b;
+  --color-air-red: #c0332b;
+  --color-air-blue: #24408e;
 
-  --font-display: "Barlow Condensed", "Segoe UI", sans-serif;
+  /* Alliance identity. Darkened from the brand values so each clears 4.5:1 as
+     text on paper - the gold especially, which is unreadable at its real value. */
+  --color-star: #8a6410;
+  --color-oneworld: #24408e;
+  --color-skyteam: #8e2f6b;
+  --color-unaligned: #6b6357;
+
+  --font-display: "Calistoga", Georgia, serif;
   --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Consolas", monospace;
 }
 
 @layer base {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   body {
-    background-color: var(--color-bg);
+    background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    /* Paper has tooth. Two very faint crosshatches keep large fields of cream
+       from reading as flat #FFF-adjacent nothing. */
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(23, 19, 16, 0.016) 0 1px,
+        transparent 1px 4px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(23, 19, 16, 0.016) 0 1px,
+        transparent 1px 4px
+      );
   }
 
-  /* Distances and codes sit in columns. Tabular figures stop them jittering. */
+  /* Codes, distances and times sit in columns. Tabular figures stop them
+     shifting as values change. */
   .tnum {
     font-variant-numeric: tabular-nums;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-bright);
+    outline: 3px solid var(--color-air-red);
     outline-offset: 2px;
-    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-air-red);
+    color: var(--color-paper);
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-bg);
+    background: var(--color-paper-2);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-line);
-    border-radius: 6px;
+    background: var(--color-ink-faint);
+    border: 3px solid var(--color-paper-2);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-line-bright);
+    background: var(--color-ink-dim);
+  }
+}
+
+@layer components {
+  /* The par-avion stripe. Genuinely the thing that makes an envelope read as
+     airmail, and it costs one gradient. */
+  .airmail-stripe {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-air-red) 0 10px,
+      var(--color-paper) 10px 20px,
+      var(--color-air-blue) 20px 30px,
+      var(--color-paper) 30px 40px
+    );
+  }
+
+  /* A card printed on stock: hard ink rule, no radius, and a dropped shadow that
+     is an offset block rather than a blur, the way ink sits on paper. */
+  .card {
+    background-color: var(--color-paper);
+    border: 2px solid var(--color-rule);
+    box-shadow: 4px 4px 0 var(--color-rule);
+  }
+
+  .card-flat {
+    background-color: var(--color-paper);
+    border: 2px solid var(--color-rule);
+  }
+
+  /* Boarding-pass perforation: a dashed rule with a punched notch at each end,
+     so a stub reads as something you could tear. */
+  .perforation {
+    position: relative;
+    border-left: 2px dashed var(--color-rule);
+  }
+  .perforation::before,
+  .perforation::after {
+    content: "";
+    position: absolute;
+    left: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background-color: var(--color-paper);
+    border: 2px solid var(--color-rule);
+  }
+  .perforation::before {
+    top: -10px;
+    clip-path: inset(50% 0 0 0);
+  }
+  .perforation::after {
+    bottom: -10px;
+    clip-path: inset(0 0 50% 0);
+  }
+
+  /* Rubber-stamp treatment for alliance labels. */
+  .stamp {
+    border: 2px solid currentColor;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
   }
 }
 
 @layer utilities {
-  /* One shared entrance. Short, and it disappears entirely for anyone who has
-     asked their system to stop moving things. */
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  .animate-rise {
-    animation: rise 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
+  /* There is deliberately no entrance animation.
+   *
+   * The first version faded each result in with a staggered delay. Two problems:
+   * it is the house style of every generated dashboard, and more seriously it made
+   * visibility depend on an animation completing - in a background tab, where
+   * animations do not advance, all twenty results sat at opacity 0 and the page
+   * looked empty. Content is now visible the moment it renders. Motion here is
+   * limited to hover and focus, where nothing is hidden if it never runs. */
 
   @media (prefers-reduced-motion: reduce) {
     *,

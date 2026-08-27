@@ -5,8 +5,7 @@
  * states look like.
  */
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { AlertTriangle, DatabaseZap, RotateCw, SearchX } from "lucide-react";
-import { ALLIANCE_CLASS, ALLIANCE_LABELS, ApiError, type AllianceId } from "./api";
+import { ApiError, ALLIANCE_CLASS, ALLIANCE_LABELS, type AllianceId } from "./api";
 
 // --- async state -------------------------------------------------------------
 
@@ -112,14 +111,12 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={`rounded-xl border border-line bg-surface/80 ${className}`}>
+    <section className={`card-flat ${className}`}>
       {title && (
-        <header className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-3">
+        <header className="flex flex-wrap items-end justify-between gap-3 border-b-2 border-rule bg-paper-2 px-4 py-2.5">
           <div>
-            <h2 className="font-display text-base font-semibold tracking-wide text-ink uppercase">
-              {title}
-            </h2>
-            {subtitle && <p className="mt-0.5 text-xs text-ink-dim">{subtitle}</p>}
+            <h2 className="font-display text-xl leading-none text-ink">{title}</h2>
+            {subtitle && <p className="mt-1.5 text-xs text-ink-dim">{subtitle}</p>}
           </div>
           {action}
         </header>
@@ -129,40 +126,40 @@ export function Panel({
   );
 }
 
+/** A small caps label of the kind printed above a field on a real ticket. */
+export function Caption({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <span
+      className={`block text-[10px] font-semibold tracking-[0.14em] text-ink-faint uppercase ${className}`}
+    >
+      {children}
+    </span>
+  );
+}
+
 // --- states ------------------------------------------------------------------
 
-/** Skeletons rather than a spinner: the shape of the answer arrives before it does. */
+/** Skeletons rather than a spinner: the shape of the answer arrives first. */
 export function Skeleton({ rows = 5 }: { rows?: number }) {
   return (
-    <div className="space-y-2 p-4" aria-busy="true" aria-live="polite">
+    <div className="space-y-3 p-4" aria-busy="true" aria-live="polite">
       <span className="sr-only">Loading</span>
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
-          className="h-12 animate-pulse rounded-lg bg-surface-2"
-          style={{ opacity: 1 - i * 0.12 }}
+          className="h-14 animate-pulse border-2 border-rule-soft bg-paper-2"
+          style={{ opacity: 1 - i * 0.13 }}
         />
       ))}
     </div>
   );
 }
 
-export function EmptyState({
-  title,
-  body,
-  icon: Icon = SearchX,
-}: {
-  title: string;
-  body: string;
-  icon?: typeof SearchX;
-}) {
+export function EmptyState({ title, body }: { title: string; body: string }) {
   return (
-    <div className="flex flex-col items-center gap-3 px-6 py-14 text-center">
-      <Icon className="h-8 w-8 text-ink-faint" aria-hidden="true" />
-      <p className="font-display text-base font-semibold tracking-wide text-ink uppercase">
-        {title}
-      </p>
-      <p className="max-w-sm text-sm leading-relaxed text-ink-dim">{body}</p>
+    <div className="px-6 py-16 text-center">
+      <p className="font-display text-2xl text-ink">{title}</p>
+      <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-dim">{body}</p>
     </div>
   );
 }
@@ -171,22 +168,20 @@ export function ErrorState({ error, onRetry }: { error: ApiError; onRetry?: () =
   // A 503 from this API means one specific thing, and saying so beats "something
   // went wrong" - the person reading it can actually fix a stopped instance.
   const dbDown = error.status === 503 || error.status === 0;
-  const Icon = dbDown ? DatabaseZap : AlertTriangle;
   return (
-    <div role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
-      <Icon className="h-8 w-8 text-star" aria-hidden="true" />
-      <p className="font-display text-base font-semibold tracking-wide text-star uppercase">
-        {dbDown ? "Graph unreachable" : "Something broke"}
+    <div role="alert" className="px-6 py-14 text-center">
+      {/* Stamped like a rejected form, because that is what happened. */}
+      <p className="stamp mx-auto inline-block -rotate-2 px-3 py-1 text-sm text-air-red">
+        {dbDown ? "No connection" : "Error"}
       </p>
-      <p className="max-w-md text-sm leading-relaxed text-ink-dim">{error.message}</p>
-      {error.hint && <p className="max-w-md text-xs text-ink-faint">{error.hint}</p>}
+      <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink">{error.message}</p>
+      {error.hint && <p className="mx-auto mt-2 max-w-md text-xs text-ink-faint">{error.hint}</p>}
       {onRetry && (
         <button
           type="button"
           onClick={onRetry}
-          className="mt-1 inline-flex cursor-pointer items-center gap-2 rounded-lg border border-line-bright bg-surface-2 px-4 py-2 text-sm font-medium text-ink transition-colors duration-200 hover:border-brand hover:text-brand-bright"
+          className="mt-5 cursor-pointer border-2 border-rule bg-paper px-4 py-2 text-sm font-semibold text-ink transition-transform duration-150 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--color-rule)]"
         >
-          <RotateCw className="h-4 w-4" aria-hidden="true" />
           Try again
         </button>
       )}
@@ -217,13 +212,13 @@ export function Async<T>({
 
 // --- data bits ---------------------------------------------------------------
 
-/** Alliance, coloured by identity and always carrying its name as text. */
+/** Alliance as a rubber stamp: colour plus the name, never colour alone. */
 export function AllianceChip({ alliance, size = "sm" }: { alliance: AllianceId; size?: "sm" | "xs" }) {
   return (
     <span
-      className={`inline-block rounded border px-1.5 py-0.5 font-medium tracking-wide whitespace-nowrap ${
-        size === "xs" ? "text-[10px]" : "text-xs"
-      } ${ALLIANCE_CLASS[alliance]}`}
+      className={`stamp inline-block whitespace-nowrap ${ALLIANCE_CLASS[alliance]} ${
+        size === "xs" ? "px-1 py-px text-[9px]" : "px-1.5 py-0.5 text-[10px]"
+      }`}
     >
       {ALLIANCE_LABELS[alliance]}
     </span>
@@ -233,16 +228,14 @@ export function AllianceChip({ alliance, size = "sm" }: { alliance: AllianceId; 
 export function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-medium tracking-wide text-ink-dim uppercase">
-        {label}
-      </span>
+      <Caption className="mb-1">{label}</Caption>
       {children}
     </label>
   );
 }
 
 export const selectClass =
-  "w-full cursor-pointer rounded-lg border border-line bg-surface-2 px-3 py-2.5 text-sm text-ink transition-colors duration-200 hover:border-line-bright focus:border-brand";
+  "min-h-11 w-full cursor-pointer appearance-none border-2 border-rule bg-paper px-3 py-2.5 text-sm font-medium text-ink transition-colors duration-150 hover:bg-paper-2 focus:bg-paper-2";
 
 export const inputClass =
-  "w-full rounded-lg border border-line bg-surface-2 px-3 py-2.5 font-mono text-sm text-ink transition-colors duration-200 placeholder:text-ink-faint hover:border-line-bright focus:border-brand";
+  "min-h-11 w-full border-2 border-rule bg-paper px-3 py-2.5 font-mono text-sm text-ink transition-colors duration-150 placeholder:text-ink-faint focus:bg-paper-2";

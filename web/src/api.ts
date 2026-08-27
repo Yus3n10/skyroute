@@ -170,12 +170,14 @@ export const ALLIANCE_LABELS: Record<AllianceId, string> = {
   none: "Unaligned",
 };
 
-/** One place decides how an alliance reads, so the colour never drifts. */
+/** One place decides how an alliance reads, so the colour never drifts.
+ *  Text colour only - the chip draws its own border from currentColor, which is
+ *  what keeps a stamp looking stamped. */
 export const ALLIANCE_CLASS: Record<AllianceId, string> = {
-  "star-alliance": "border-star/40 bg-star/10 text-star",
-  oneworld: "border-oneworld/40 bg-oneworld/10 text-oneworld",
-  skyteam: "border-skyteam/40 bg-skyteam/10 text-skyteam",
-  none: "border-unaligned/40 bg-unaligned/10 text-unaligned",
+  "star-alliance": "text-star",
+  oneworld: "text-oneworld",
+  skyteam: "text-skyteam",
+  none: "text-unaligned",
 };
 
 export function formatKm(km: number): string {

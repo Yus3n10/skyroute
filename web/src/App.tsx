@@ -1,12 +1,11 @@
-/** App shell: header, tab navigation, and the one place the whole app can fail.
+/** App shell: masthead, tab navigation, and the one place the whole app can fail.
  *
  * The airline lookup loads once here and is passed down, so the itinerary query
  * never has to join out to an Airline node on every leg of a path.
  */
 import { useEffect, useMemo, useState } from "react";
-import { Globe2, Route, Users } from "lucide-react";
 import { api } from "./api";
-import { ErrorState, Skeleton, useAsync } from "./ui";
+import { Caption, ErrorState, Skeleton, useAsync } from "./ui";
 import Itineraries from "./views/Itineraries";
 import Alliances from "./views/Alliances";
 import Explorer from "./views/Explorer";
@@ -15,19 +14,16 @@ const TABS = [
   {
     id: "itineraries",
     label: "Itineraries",
-    icon: Route,
-    blurb: "Find every way the observed network connects two airports.",
+    blurb: "Every way the observed network connects two airports.",
   },
   {
     id: "alliances",
     label: "Alliances",
-    icon: Users,
-    blurb: "Compare what each alliance can offer on the same city pair.",
+    blurb: "What each alliance can offer on the same city pair.",
   },
   {
     id: "explorer",
     label: "Airports",
-    icon: Globe2,
     blurb: "Direct destinations, country reach, and the busiest hubs.",
   },
 ] as const;
@@ -70,54 +66,87 @@ export default function App() {
 
   return (
     <div className="min-h-dvh">
-      <header className="sticky top-0 z-20 border-b border-line bg-bg/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3 sm:px-6">
-          <div>
-            <h1 className="font-display text-xl font-bold tracking-wide text-ink">
-              SKY<span className="text-brand-bright">ROUTE</span>
-            </h1>
-            <p className="text-[11px] text-ink-faint">The live route network as a graph</p>
+      {/* The par-avion stripe, the way it runs along the edge of an airmail
+          envelope. Decorative only, so it is hidden from assistive tech. */}
+      <div className="airmail-stripe h-2" aria-hidden="true" />
+
+      <header className="border-b-2 border-rule bg-paper">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 pt-5 pb-3">
+            <div>
+              <h1 className="font-display text-4xl leading-none text-ink sm:text-5xl">
+                SkyRoute
+              </h1>
+              <p className="mt-1.5 max-w-md text-sm text-ink-dim">
+                The world&rsquo;s airline network, as it was actually flying.
+              </p>
+            </div>
+
+            {stats.data && (
+              <dl className="flex gap-6 text-right">
+                <div>
+                  <Caption>Airports</Caption>
+                  <dd className="font-mono text-lg font-bold text-ink tnum">
+                    {(stats.data.nodes.Airport ?? 0).toLocaleString()}
+                  </dd>
+                </div>
+                <div>
+                  <Caption>Airlines</Caption>
+                  <dd className="font-mono text-lg font-bold text-ink tnum">
+                    {(stats.data.nodes.Airline ?? 0).toLocaleString()}
+                  </dd>
+                </div>
+                <div>
+                  <Caption>Routes</Caption>
+                  <dd className="font-mono text-lg font-bold text-air-red tnum">
+                    {(stats.data.relationships.FLIES_TO ?? 0).toLocaleString()}
+                  </dd>
+                </div>
+              </dl>
+            )}
           </div>
 
-          <nav aria-label="Main" className="order-3 w-full sm:order-none sm:w-auto">
-            <ul className="flex gap-1 overflow-x-auto">
-              {TABS.map(({ id, label, icon: Icon }) => (
-                <li key={id}>
-                  {/* A real anchor, so these are linkable, middle-clickable and
-                      reachable by keyboard without any extra handling. */}
-                  <a
-                    href={`#${id}`}
-                    onClick={() => setTab(id)}
-                    aria-current={tab === id ? "page" : undefined}
-                    className={`flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-200 ${
-                      tab === id
-                        ? "bg-brand/15 text-brand-bright"
-                        : "text-ink-dim hover:bg-surface-2 hover:text-ink"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" aria-hidden="true" />
-                    {label}
-                  </a>
-                </li>
-              ))}
+          {/* Tabs sit on the rule like index tabs on a folder: the active one is
+              filled and loses its bottom edge, so it joins the page below. */}
+          <nav aria-label="Main">
+            {/* On a very narrow screen the three tabs are wider than the viewport.
+                Scroll the tab strip rather than the whole page body. */}
+            <ul className="-mb-0.5 flex gap-1 overflow-x-auto">
+              {TABS.map(({ id, label }) => {
+                const current = tab === id;
+                return (
+                  <li key={id}>
+                    {/* A real anchor, so these are linkable, middle-clickable and
+                        keyboard-reachable without any extra handling. */}
+                    <a
+                      href={`#${id}`}
+                      onClick={() => setTab(id)}
+                      aria-current={current ? "page" : undefined}
+                      className={`flex min-h-11 cursor-pointer items-center border-2 border-b-0 px-4 text-sm font-semibold tracking-wide transition-colors duration-150 ${
+                        current
+                          ? "border-rule bg-ink text-paper"
+                          : "border-rule-soft bg-paper-2 text-ink-dim hover:border-rule hover:text-ink"
+                      }`}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
-
-          {stats.data && (
-            <p className="ml-auto hidden font-mono text-[11px] text-ink-faint tnum md:block">
-              {stats.data.nodeTotal.toLocaleString()} nodes &middot;{" "}
-              {stats.data.relationshipTotal.toLocaleString()} relationships
-            </p>
-          )}
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
-        <p className="mb-4 text-sm text-ink-dim">{active.blurb}</p>
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        {/* A lede, set in the display serif, rather than a coloured side rule. */}
+        <p className="mb-6 max-w-2xl font-display text-lg leading-snug text-ink-dim">
+          {active.blurb}
+        </p>
 
-        {airlines.loading && <Skeleton rows={6} />}
+        {airlines.loading && <Skeleton rows={5} />}
         {airlines.error && (
-          <div className="rounded-xl border border-line bg-surface/80">
+          <div className="card-flat">
             <ErrorState error={airlines.error} onRetry={airlines.reload} />
           </div>
         )}
@@ -129,27 +158,30 @@ export default function App() {
           </>
         )}
         {airlines.data && airlines.data.length === 0 && (
-          <div className="rounded-xl border border-line bg-surface/80 px-6 py-16 text-center">
-            <p className="font-display text-base font-semibold tracking-wide text-ink uppercase">
-              The graph is empty
-            </p>
+          <div className="card-flat px-6 py-16 text-center">
+            <p className="font-display text-2xl text-ink">Nothing on the board</p>
             <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-dim">
-              The database is reachable but has nothing in it. Collect a route
-              snapshot and load it:
+              The database is reachable but has nothing in it. Collect a snapshot and
+              load it:
             </p>
-            <code className="mt-3 inline-block rounded bg-surface-2 px-3 py-1.5 font-mono text-xs text-brand-bright">
+            <code className="mt-4 inline-block border-2 border-rule bg-paper-2 px-3 py-1.5 font-mono text-xs text-ink">
               python -m seed.collect &amp;&amp; python -m seed.load
             </code>
           </div>
         )}
       </main>
 
-      <footer className="mx-auto max-w-7xl px-4 py-8 text-xs leading-relaxed text-ink-faint sm:px-6">
-        Routes are observed via ADS-B rather than taken from a published schedule,
-        so coverage follows receiver density, this is not a complete picture of any
-        airline&rsquo;s network, and cargo and charter operators appear alongside
-        passenger airlines. Airports from OurAirports; alliance membership from the
-        alliances&rsquo; own published member lists.
+      <footer className="mt-8 border-t-2 border-rule bg-paper-2">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+          <Caption>About this data</Caption>
+          <p className="mt-2 max-w-3xl text-xs leading-relaxed text-ink-dim">
+            Routes are observed via ADS-B rather than taken from a published schedule,
+            so coverage follows receiver density, this is not a complete picture of any
+            airline&rsquo;s network, and cargo and charter operators appear alongside
+            passenger airlines. Airports from OurAirports; alliance membership from the
+            alliances&rsquo; own published member lists.
+          </p>
+        </div>
       </footer>
     </div>
   );

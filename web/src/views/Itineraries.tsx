@@ -3,9 +3,12 @@
  * Pick two airports and the server walks up to three FLIES_TO hops between them,
  * optionally requiring every leg to belong to the same alliance, and ranks what it
  * finds by stops then total great-circle distance.
+ *
+ * Each result is drawn as a boarding pass: a torn-off stub carrying the headline
+ * numbers, then the route itself. It is the format this information already has in
+ * the real world, which beats inventing a card for it.
  */
 import { useEffect, useState } from "react";
-import { ArrowRight, Route, Search } from "lucide-react";
 import {
   ALLIANCE_LABELS,
   api,
@@ -14,7 +17,17 @@ import {
   type Airport,
   type Itinerary,
 } from "../api";
-import { AllianceChip, Async, Field, Panel, selectClass, useAsync, useHashParams } from "../ui";
+import {
+  AllianceChip,
+  Async,
+  Caption,
+  EmptyState,
+  Field,
+  Panel,
+  selectClass,
+  useAsync,
+  useHashParams,
+} from "../ui";
 import AirportPicker from "../AirportPicker";
 
 const LEG_OPTIONS = [
@@ -35,56 +48,109 @@ function stopsLabel(legCount: number): string {
   return legCount === 2 ? "1 stop" : `${legCount - 1} stops`;
 }
 
-function Chain({
+/** A single leg drawn as a dashed flight path with the aircraft on it. */
+function Leg({
+  airline,
+  alliance,
+  distanceKm,
+}: {
+  airline: string;
+  alliance: Itinerary["legs"][number]["alliance"];
+  distanceKm: number;
+}) {
+  return (
+    <div className="flex min-w-[8.5rem] flex-1 flex-col items-center justify-center px-2">
+      <span
+        className="max-w-full truncate text-center text-[11px] font-medium text-ink"
+        title={airline}
+      >
+        {airline}
+      </span>
+      <svg
+        viewBox="0 0 120 12"
+        className="my-1 h-3 w-full"
+        aria-hidden="true"
+        preserveAspectRatio="none"
+      >
+        <line
+          x1="0"
+          y1="6"
+          x2="120"
+          y2="6"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
+          className="text-ink-faint"
+        />
+        {/* A small aircraft riding the line, pointing the direction of travel. */}
+        <path d="M56 1 L66 6 L56 11 L58.5 6 Z" fill="currentColor" className="text-air-red" />
+      </svg>
+      <div className="flex items-center gap-1.5">
+        <AllianceChip alliance={alliance} size="xs" />
+        <span className="font-mono text-[10px] text-ink-faint tnum">
+          {Math.round(distanceKm).toLocaleString()} km
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function Stop({ stop, terminal }: { stop: Itinerary["stops"][number]; terminal?: boolean }) {
+  return (
+    <div className="w-24 shrink-0">
+      <p
+        className={`font-mono leading-none font-bold tracking-tight ${
+          terminal ? "text-2xl text-ink" : "text-xl text-ink-dim"
+        }`}
+      >
+        {stop.iata}
+      </p>
+      <p className="mt-1 truncate text-xs text-ink-dim" title={stop.name}>
+        {stop.city || stop.name}
+      </p>
+      <p className="truncate text-[10px] text-ink-faint">{stop.country}</p>
+    </div>
+  );
+}
+
+function BoardingPass({
   itinerary,
-  index,
   airlines,
 }: {
   itinerary: Itinerary;
-  index: number;
   airlines: Map<string, Airline>;
 }) {
   return (
-    <li
-      className="animate-rise rounded-lg border border-line bg-surface-2/50 p-3"
-      style={{ animationDelay: `${Math.min(index, 8) * 30}ms` }}
-    >
-      <div className="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="font-display text-lg font-semibold tracking-wide text-brand-bright">
+    <li className="card flex">
+      {/* The stub: what you would actually read at a glance. */}
+      <div className="w-28 shrink-0 bg-paper-2 px-3 py-3">
+        <Caption>{itinerary.legCount === 1 ? "Nonstop" : "Connecting"}</Caption>
+        <p className="mt-1 font-display text-xl leading-none text-ink">
           {stopsLabel(itinerary.legCount)}
-        </span>
-        <span className="font-mono text-sm text-ink-dim tnum">
+        </p>
+        <p className="mt-2 font-mono text-sm font-bold text-air-red tnum">
           {formatKm(itinerary.distanceKm)}
-        </span>
+        </p>
       </div>
 
-      {/* Long itineraries scroll inside their own row rather than the page. */}
-      <div className="-mx-1 overflow-x-auto px-1 pb-1">
-        <div className="flex min-w-max items-stretch">
-          {itinerary.stops.map((stop, i) => (
-            <div key={`${stop.iata}-${i}`} className="flex items-stretch">
-              <div className="w-28 shrink-0 rounded-md border border-line bg-surface px-2.5 py-2">
-                <p className="font-mono text-base font-bold text-ink">{stop.iata}</p>
-                <p className="truncate text-xs text-ink-dim" title={stop.name}>
-                  {stop.city || stop.name}
-                </p>
-                <p className="truncate text-[10px] text-ink-faint">{stop.country}</p>
+      <div className="perforation min-w-0 flex-1">
+        <div className="overflow-x-auto px-4 py-3">
+          <div className="flex min-w-max items-center">
+            {itinerary.stops.map((stop, i) => (
+              <div key={`${stop.iata}-${i}`} className="flex items-center">
+                <Stop stop={stop} terminal={i === 0 || i === itinerary.stops.length - 1} />
+                {i < itinerary.legs.length && (
+                  <Leg
+                    airline={
+                      airlines.get(itinerary.legs[i].airline)?.name ?? itinerary.legs[i].airline
+                    }
+                    alliance={itinerary.legs[i].alliance}
+                    distanceKm={itinerary.legs[i].distanceKm}
+                  />
+                )}
               </div>
-
-              {i < itinerary.legs.length && (
-                <div className="flex w-28 shrink-0 flex-col items-center justify-center gap-1 px-1">
-                  <ArrowRight className="h-4 w-4 text-ink-faint" aria-hidden="true" />
-                  <span className="text-center text-[11px] leading-tight text-ink">
-                    {airlines.get(itinerary.legs[i].airline)?.name ?? itinerary.legs[i].airline}
-                  </span>
-                  <AllianceChip alliance={itinerary.legs[i].alliance} size="xs" />
-                  <span className="font-mono text-[10px] text-ink-faint tnum">
-                    {formatKm(itinerary.legs[i].distanceKm)}
-                  </span>
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </li>
@@ -104,8 +170,8 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
   useEffect(() => {
     const from = params.get("from");
     const to = params.get("to");
-    if (from && !origin) api.airport(from).then((d) => setOrigin(d.airport)).catch(() => {});
-    if (to && !destination) api.airport(to).then((d) => setDestination(d.airport)).catch(() => {});
+    if (from) api.airport(from).then((d) => setOrigin(d.airport)).catch(() => {});
+    if (to) api.airport(to).then((d) => setDestination(d.airport)).catch(() => {});
     // Intentionally first-load only: after this the pickers own the state.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -125,7 +191,7 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
   );
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[340px_1fr]">
+    <div className="grid gap-5 lg:grid-cols-[19rem_1fr]">
       <Panel title="Find a route" className="h-fit">
         <div className="space-y-4 p-4">
           <AirportPicker label="From" value={origin} onChange={choose("from")} />
@@ -135,7 +201,10 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
             <select
               className={selectClass}
               value={maxLegs}
-              onChange={(e) => { setMaxLegs(Number(e.target.value)); setParams({ legs: e.target.value }); }}
+              onChange={(e) => {
+                setMaxLegs(Number(e.target.value));
+                setParams({ legs: e.target.value });
+              }}
             >
               {LEG_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>
@@ -149,7 +218,10 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
             <select
               className={selectClass}
               value={alliance}
-              onChange={(e) => { setAlliance(e.target.value); setParams({ alliance: e.target.value || null }); }}
+              onChange={(e) => {
+                setAlliance(e.target.value);
+                setParams({ alliance: e.target.value || null });
+              }}
             >
               {ALLIANCE_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>
@@ -160,61 +232,53 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
           </Field>
 
           {origin && destination && origin.iata === destination.iata && (
-            <p role="alert" className="text-xs text-star">
+            <p role="alert" className="text-xs font-medium text-air-red">
               Origin and destination are the same airport.
             </p>
           )}
 
-          <p className="border-t border-line pt-3 text-xs leading-relaxed text-ink-faint">
-            Each stop is one FLIES_TO hop in the graph. Choosing an alliance makes
-            every leg of the itinerary satisfy the same constraint, which is a rule
-            about the whole path rather than any single flight.
+          <p className="border-t-2 border-rule-soft pt-3 text-xs leading-relaxed text-ink-faint">
+            Each stop is one FLIES_TO hop. Choosing an alliance makes every leg satisfy
+            the same constraint, which is a rule about the whole path rather than any
+            single flight.
           </p>
         </div>
       </Panel>
 
       <Panel
+        className="min-w-0"
         title="Itineraries"
         subtitle={
           results.data
-            ? `${results.data.itineraries.length} found from ${results.data.origin.iata} to ${results.data.destination.iata}`
+            ? `${results.data.itineraries.length} found, ${results.data.origin.iata} to ${results.data.destination.iata}`
             : undefined
         }
       >
         {!ready ? (
-          <div className="px-6 py-16 text-center">
-            <Search className="mx-auto h-8 w-8 text-ink-faint" aria-hidden="true" />
-            <p className="mt-3 font-display text-base font-semibold tracking-wide text-ink uppercase">
-              Choose two airports
-            </p>
-            <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-dim">
-              Pick where you are flying from and to, and the graph will find every
-              way to connect them.
-            </p>
-          </div>
+          <EmptyState
+            title="Where to?"
+            body="Choose an origin and a destination, and the graph will find every way the observed network connects them."
+          />
         ) : (
           <Async
             state={results}
             skeletonRows={4}
             isEmpty={(d) => d.itineraries.length === 0}
             empty={
-              <div className="px-6 py-16 text-center">
-                <Route className="mx-auto h-8 w-8 text-ink-faint" aria-hidden="true" />
-                <p className="mt-3 font-display text-base font-semibold tracking-wide text-ink uppercase">
-                  No route found
-                </p>
-                <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-dim">
-                  {alliance
-                    ? `Nothing connects these airports on ${ALLIANCE_LABELS[alliance as keyof typeof ALLIANCE_LABELS]} within this many stops. Try allowing any airline, or one more stop.`
-                    : "Nothing connects these airports within this many stops. Try allowing one more stop."}
-                </p>
-              </div>
+              <EmptyState
+                title="Nothing connects"
+                body={
+                  alliance
+                    ? `No ${ALLIANCE_LABELS[alliance as keyof typeof ALLIANCE_LABELS]} itinerary links these airports within this many stops. Try any airline, or allow one more stop.`
+                    : "No itinerary links these airports within this many stops. Try allowing one more stop."
+                }
+              />
             }
           >
             {(data) => (
-              <ul className="space-y-2 p-3">
+              <ul className="space-y-4 p-4">
                 {data.itineraries.map((itinerary, i) => (
-                  <Chain key={i} itinerary={itinerary} index={i} airlines={airlines} />
+                  <BoardingPass key={i} itinerary={itinerary} airlines={airlines} />
                 ))}
               </ul>
             )}
