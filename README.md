@@ -7,8 +7,11 @@ you accept one more connection.
 Built on [CognoDB](https://console.cognodb.com) using openCypher over Bolt, with a
 FastAPI backend and a React frontend served from the same process.
 
-- **Live demo:** _<add your hosted URL here>_
+- **Live demo:** <https://skyroute-5qin.onrender.com>
 - **Screen recording:** _<add your recording link here>_
+
+The demo runs on a free tier that sleeps when idle, so the first load can take about
+a minute to wake.
 
 ---
 
