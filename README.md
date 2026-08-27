@@ -264,11 +264,36 @@ To gather a fresher snapshot yourself:
 
 ```bash
 python -m seed.collect --snapshots 2
+python -m seed.refresh_airports      # optional: pull the latest OurAirports extract
 ```
 
-That takes a while on purpose. It rate-limits itself to roughly one request per
-second out of courtesy to two free APIs, caches every resolved callsign to disk, and
-resumes where it left off if interrupted.
+That takes a while on purpose. It rate-limits itself out of courtesy to two free
+APIs, caches every resolved callsign to disk, and resumes where it left off if
+interrupted.
+
+One detail worth knowing: the pending queue is **shuffled with a seeded RNG**
+before resolving. A callsign is an airline prefix plus a flight number, so
+resolving in sorted order works through one carrier at a time — an interrupted run
+would leave a cache that is entirely American Airlines rather than a cross-section
+of the network. The seed keeps the order reproducible between runs.
+
+### Checks
+
+```bash
+python -m seed.check_alliances    # the one hand-entered table
+python -m seed.test_load          # join and distance logic, no database needed
+python -m seed.verify_graph       # every query, against the live graph
+```
+
+`test_load` validates the great-circle maths against published LHR–JFK, MNL–HND and
+SYD–MEL distances, and asserts that every route in the join resolves to a real
+airport, a real airline and a consistent alliance.
+
+`verify_graph` asserts things about the *shape* of each answer rather than merely
+that a query returned: an itinerary must start where you asked and end where you
+asked, its reported distance must equal the sum of its legs, an alliance-filtered
+itinerary must not contain a leg from another alliance, and out-of-range input must
+be refused before it reaches the database.
 
 ### 5. Run
 

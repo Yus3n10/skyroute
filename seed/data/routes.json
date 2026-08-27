@@ -1,0 +1,2609 @@
+{
+ "collectedAt": "2026-08-27T15:51:45+00:00",
+ "sources": {
+  "callsigns": "OpenSky Network /states/all",
+  "routes": "adsbdb.com /v0/callsign",
+  "airports": "OurAirports airports.csv"
+ },
+ "note": "Routes observed via ADS-B, not a published schedule. Coverage follows receiver density, so Europe and North America are better represented than oceanic and remote regions.",
+ "callsignsSeen": 500,
+ "callsignsResolved": 480,
+ "airlines": [
+  {
+   "code": "AAL",
+   "name": "American Airlines",
+   "iata": "AA",
+   "icao": "AAL",
+   "country": "United States"
+  },
+  {
+   "code": "AAR",
+   "name": "Asiana Airlines",
+   "iata": "OZ",
+   "icao": "AAR",
+   "country": "South Korea"
+  },
+  {
+   "code": "ABY",
+   "name": "Air Arabia",
+   "iata": "G9",
+   "icao": "ABY",
+   "country": "United Arab Emirates"
+  },
+  {
+   "code": "ACA",
+   "name": "Air Canada",
+   "iata": "AC",
+   "icao": "ACA",
+   "country": "Canada"
+  },
+  {
+   "code": "AEA",
+   "name": "Air Europa",
+   "iata": "UX",
+   "icao": "AEA",
+   "country": "Spain"
+  },
+  {
+   "code": "AFR",
+   "name": "Air France",
+   "iata": "AF",
+   "icao": "AFR",
+   "country": "France"
+  },
+  {
+   "code": "ASA",
+   "name": "Alaska Airlines",
+   "iata": "AS",
+   "icao": "ASA",
+   "country": "United States"
+  },
+  {
+   "code": "ASH",
+   "name": "Mesa Airlines",
+   "iata": "YV",
+   "icao": "ASH",
+   "country": "United States"
+  },
+  {
+   "code": "ATC",
+   "name": "Air Tanzania",
+   "iata": "TC",
+   "icao": "ATC",
+   "country": "Tanzania"
+  },
+  {
+   "code": "AVA",
+   "name": "Avianca - Aerovias Nacionales de Colombia, S.A.",
+   "iata": "AV",
+   "icao": "AVA",
+   "country": "Colombia"
+  },
+  {
+   "code": "AXB",
+   "name": "Air India Express",
+   "iata": "IX",
+   "icao": "AXB",
+   "country": "India"
+  },
+  {
+   "code": "AZU",
+   "name": "Azul Brazilian Airlines",
+   "iata": "AD",
+   "icao": "AZU",
+   "country": "Brazil"
+  },
+  {
+   "code": "BAW",
+   "name": "British Airways",
+   "iata": "BA",
+   "icao": "BAW",
+   "country": "United Kingdom"
+  },
+  {
+   "code": "BBG",
+   "name": "Bluebird Airways (BZ)",
+   "iata": "",
+   "icao": "BBG",
+   "country": "Greece"
+  },
+  {
+   "code": "CES",
+   "name": "China Eastern Airlines",
+   "iata": "MU",
+   "icao": "CES",
+   "country": "China"
+  },
+  {
+   "code": "CFS",
+   "name": "Empire Airlines",
+   "iata": "EM",
+   "icao": "CFS",
+   "country": "United States"
+  },
+  {
+   "code": "CHH",
+   "name": "Hainan Airlines",
+   "iata": "HU",
+   "icao": "CHH",
+   "country": "China"
+  },
+  {
+   "code": "CSH",
+   "name": "Shanghai Airlines",
+   "iata": "FM",
+   "icao": "CSH",
+   "country": "China"
+  },
+  {
+   "code": "CSZ",
+   "name": "Shenzhen Airlines",
+   "iata": "ZH",
+   "icao": "CSZ",
+   "country": "China"
+  },
+  {
+   "code": "CXI",
+   "name": "Shanxi Airlines",
+   "iata": "8C",
+   "icao": "CXI",
+   "country": "China"
+  },
+  {
+   "code": "DAL",
+   "name": "Delta Air Lines",
+   "iata": "DL",
+   "icao": "DAL",
+   "country": "United States"
+  },
+  {
+   "code": "EDV",
+   "name": "Endeavor Air",
+   "iata": "9E",
+   "icao": "EDV",
+   "country": "United States"
+  },
+  {
+   "code": "EJA",
+   "name": "NetJets",
+   "iata": "1I",
+   "icao": "EJA",
+   "country": "United States"
+  },
+  {
+   "code": "ETD",
+   "name": "Etihad Airways",
+   "iata": "EY",
+   "icao": "ETD",
+   "country": "United Arab Emirates"
+  },
+  {
+   "code": "FDX",
+   "name": "FedEx Express",
+   "iata": "FX",
+   "icao": "FDX",
+   "country": "United States"
+  },
+  {
+   "code": "FIA",
+   "name": "Four Island Air",
+   "iata": "",
+   "icao": "FIA",
+   "country": "Antigua and Barbuda"
+  },
+  {
+   "code": "ICE",
+   "name": "Icelandair",
+   "iata": "FI",
+   "icao": "ICE",
+   "country": "Iceland"
+  },
+  {
+   "code": "IGO",
+   "name": "IndiGo Airlines",
+   "iata": "6E",
+   "icao": "IGO",
+   "country": "India"
+  },
+  {
+   "code": "ITY",
+   "name": "ITA Airways",
+   "iata": "AZ",
+   "icao": "ITY",
+   "country": "Italy"
+  },
+  {
+   "code": "JBU",
+   "name": "JetBlue Airways",
+   "iata": "B6",
+   "icao": "JBU",
+   "country": "United States"
+  },
+  {
+   "code": "KLM",
+   "name": "KLM Royal Dutch Airlines",
+   "iata": "KL",
+   "icao": "KLM",
+   "country": "Netherlands"
+  },
+  {
+   "code": "KNE",
+   "name": "Nas Air",
+   "iata": "XY",
+   "icao": "KNE",
+   "country": "Saudi Arabia"
+  },
+  {
+   "code": "LAN",
+   "name": "LAN Airlines",
+   "iata": "LA",
+   "icao": "LAN",
+   "country": "Chile"
+  },
+  {
+   "code": "MAS",
+   "name": "Malaysia Airlines",
+   "iata": "MH",
+   "icao": "MAS",
+   "country": "Malaysia"
+  },
+  {
+   "code": "NSZ",
+   "name": "Norwegian Air Sweden AOC",
+   "iata": "D8",
+   "icao": "NSZ",
+   "country": "Sweden"
+  },
+  {
+   "code": "POE",
+   "name": "Porter Airlines",
+   "iata": "PD",
+   "icao": "POE",
+   "country": "Canada"
+  },
+  {
+   "code": "ROT",
+   "name": "Tarom",
+   "iata": "RO",
+   "icao": "ROT",
+   "country": "Romania"
+  },
+  {
+   "code": "RYR",
+   "name": "Ryanair",
+   "iata": "FR",
+   "icao": "RYR",
+   "country": "Ireland"
+  },
+  {
+   "code": "SKW",
+   "name": "SkyWest Airlines",
+   "iata": "OO",
+   "icao": "SKW",
+   "country": "United States"
+  },
+  {
+   "code": "SWA",
+   "name": "Southwest Airlines",
+   "iata": "WN",
+   "icao": "SWA",
+   "country": "United States"
+  },
+  {
+   "code": "TAP",
+   "name": "TAP Portugal",
+   "iata": "TP",
+   "icao": "TAP",
+   "country": "Portugal"
+  },
+  {
+   "code": "TBA",
+   "name": "Transbrasil",
+   "iata": "",
+   "icao": "TBA",
+   "country": "Brazil"
+  },
+  {
+   "code": "THY",
+   "name": "Turkish Airlines",
+   "iata": "TK",
+   "icao": "THY",
+   "country": "Turkey"
+  },
+  {
+   "code": "TLM",
+   "name": "Thai Lion Air",
+   "iata": "SL",
+   "icao": "TLM",
+   "country": "Thailand"
+  },
+  {
+   "code": "TTW",
+   "name": "Tigerair Taiwan",
+   "iata": "IT",
+   "icao": "TTW",
+   "country": "Taiwan"
+  },
+  {
+   "code": "UAL",
+   "name": "United Airlines",
+   "iata": "UA",
+   "icao": "UAL",
+   "country": "United States"
+  },
+  {
+   "code": "UPS",
+   "name": "United Parcel Service",
+   "iata": "5X",
+   "icao": "UPS",
+   "country": "United States"
+  },
+  {
+   "code": "VIV",
+   "name": "VivaAerobus",
+   "iata": "VB",
+   "icao": "VIV",
+   "country": "Mexico"
+  },
+  {
+   "code": "VTE",
+   "name": "Corporate Flight Management",
+   "iata": "",
+   "icao": "VTE",
+   "country": "United States"
+  },
+  {
+   "code": "WMT",
+   "name": "Wizz Air Malta",
+   "iata": "W4",
+   "icao": "WMT",
+   "country": "Malta"
+  }
+ ],
+ "routes": [
+  {
+   "airline": "AAL",
+   "origin": "AMS",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ATL",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ATL",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ATL",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "AUA",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "AUS",
+   "destination": "LAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "AUS",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BDL",
+   "destination": "CLT",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "BDL",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BNA",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BNA",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOG",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BON",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "JFK",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "LAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "MIA",
+   "observations": 5
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "ORD",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "PHL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BOS",
+   "destination": "STL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BTV",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BUF",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BUR",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "BWI",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CDG",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CID",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLE",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLE",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLE",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "AUS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "BDL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "BGI",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "BOS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "EWR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "LGA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "MCI",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "MSN",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "MSP",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "MSY",
+   "observations": 3
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "PVD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "RSW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "SFO",
+   "observations": 3
+  },
+  {
+   "airline": "AAL",
+   "origin": "CLT",
+   "destination": "SYR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CMH",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "COS",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CUN",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "CUN",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DCA",
+   "destination": "BOS",
+   "observations": 5
+  },
+  {
+   "airline": "AAL",
+   "origin": "DCA",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DCA",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DCA",
+   "destination": "LGA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DCA",
+   "destination": "PHX",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DCA",
+   "destination": "PVD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DCA",
+   "destination": "PWM",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DEN",
+   "destination": "AUS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DEN",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DEN",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DEN",
+   "destination": "PHL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DEN",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "AUS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "BNA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "CUN",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "CVG",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "DTW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "EWR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "FLL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "GRR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "HNL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "LAS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "LAX",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "LGA",
+   "observations": 5
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "LIR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "MKE",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "MLM",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "MSY",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "ONT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "PDX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "PHL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "RDU",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "RTB",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "SDF",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "SFO",
+   "observations": 5
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "SNA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "SYR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "TPA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "TUS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "DFW",
+   "destination": "XNA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DSM",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DTW",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "DUB",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "EGE",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "EWR",
+   "destination": "DFW",
+   "observations": 5
+  },
+  {
+   "airline": "AAL",
+   "origin": "EWR",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "FAT",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "FLL",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "FLL",
+   "destination": "DCA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "FLL",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "GCM",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "GDL",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "GEG",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "GEO",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "GND",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "GSP",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "GUC",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "HNL",
+   "destination": "LAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "IAH",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ICN",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "IND",
+   "destination": "CLT",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "IND",
+   "destination": "PHL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "CLO",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "DEL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "HND",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "LAS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "LAX",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "LHR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "MBJ",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "MEX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "MTY",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "SFO",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "JFK",
+   "destination": "STT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAS",
+   "destination": "AUS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAS",
+   "destination": "CLT",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAS",
+   "destination": "DCA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAS",
+   "destination": "LAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAS",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAS",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAX",
+   "destination": "AUS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAX",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAX",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAX",
+   "destination": "JFK",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAX",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAX",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LAX",
+   "destination": "SFO",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "CLT",
+   "observations": 4
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "DCA",
+   "observations": 3
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "DFW",
+   "observations": 3
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "DTW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "MSY",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "PBI",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LGA",
+   "destination": "STL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LHR",
+   "destination": "JFK",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "LHR",
+   "destination": "LAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LHR",
+   "destination": "RDU",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LIH",
+   "destination": "LAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "LIR",
+   "destination": "AUS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MBJ",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MCI",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MCO",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MCO",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MCO",
+   "destination": "LGA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MEM",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MEX",
+   "destination": "MIA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MFE",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "BAQ",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "CTG",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "DCA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "LAS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "LGA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "LIR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "MDE",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "ORD",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "PEI",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "PHL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "PLS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "POS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "SAL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "SDQ",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MIA",
+   "destination": "SFO",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MSP",
+   "destination": "CLT",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MSY",
+   "destination": "DCA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MSY",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "MSY",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MSY",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MTY",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "MYR",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "NAS",
+   "destination": "DCA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "OKC",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "OMA",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ONT",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "BNA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "BOS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "FLL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "JAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "LGA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "MCO",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "PHL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "PVR",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "SAN",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "SAT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "SFO",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "ORD",
+   "destination": "SJD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PBI",
+   "destination": "ORD",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PBI",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PDX",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PDX",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "AUS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "BOS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "CMH",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "CUN",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "DCA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "DEN",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "IND",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "LAS",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "LAX",
+   "observations": 3
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "MCI",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "MCO",
+   "observations": 3
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "MIA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "ORD",
+   "observations": 7
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "PBI",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "PHX",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "PVD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "PWM",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "RSW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "SAN",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "SJU",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHL",
+   "destination": "STL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHX",
+   "destination": "AUS",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHX",
+   "destination": "DCA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHX",
+   "destination": "MSP",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHX",
+   "destination": "SFO",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHX",
+   "destination": "SNA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PHX",
+   "destination": "TPA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PSP",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PVD",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PVD",
+   "destination": "DCA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PVD",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PVR",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "PWM",
+   "destination": "DCA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "RDU",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "RDU",
+   "destination": "LGA",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "RDU",
+   "destination": "PHL",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "RNO",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "RSW",
+   "destination": "ORD",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "RSW",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SAN",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SAN",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SAN",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SAN",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SAN",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SAT",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "SAT",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SBA",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SEA",
+   "destination": "DFW",
+   "observations": 3
+  },
+  {
+   "airline": "AAL",
+   "origin": "SEA",
+   "destination": "PHL",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SFO",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SFO",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SFO",
+   "destination": "JFK",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "SFO",
+   "destination": "MSY",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SFO",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SFO",
+   "destination": "PHX",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "SJC",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "SJC",
+   "destination": "LAX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SJD",
+   "destination": "DFW",
+   "observations": 2
+  },
+  {
+   "airline": "AAL",
+   "origin": "SJD",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SJU",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SKB",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SLC",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SLP",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SMF",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SMF",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SNA",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SRQ",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "STL",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "STS",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "STT",
+   "destination": "JFK",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "STT",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SXM",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "SYR",
+   "destination": "CLT",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "TPA",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "TPA",
+   "destination": "ORD",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "TPA",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "UVF",
+   "destination": "JFK",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "YUL",
+   "destination": "MIA",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "YUM",
+   "destination": "PHX",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "YVR",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "YYC",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAL",
+   "origin": "YYZ",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "AAR",
+   "origin": "ICN",
+   "destination": "CKG",
+   "observations": 1
+  },
+  {
+   "airline": "ABY",
+   "origin": "VIE",
+   "destination": "SHJ",
+   "observations": 1
+  },
+  {
+   "airline": "ACA",
+   "origin": "ATH",
+   "destination": "YUL",
+   "observations": 1
+  },
+  {
+   "airline": "ACA",
+   "origin": "DUB",
+   "destination": "YYZ",
+   "observations": 1
+  },
+  {
+   "airline": "ACA",
+   "origin": "YYZ",
+   "destination": "PVR",
+   "observations": 1
+  },
+  {
+   "airline": "ACA",
+   "origin": "YYZ",
+   "destination": "YQX",
+   "observations": 1
+  },
+  {
+   "airline": "AEA",
+   "origin": "IST",
+   "destination": "MAD",
+   "observations": 1
+  },
+  {
+   "airline": "AFR",
+   "origin": "MIA",
+   "destination": "PTP",
+   "observations": 1
+  },
+  {
+   "airline": "ASA",
+   "origin": "EWR",
+   "destination": "SEA",
+   "observations": 1
+  },
+  {
+   "airline": "ASA",
+   "origin": "PSP",
+   "destination": "SEA",
+   "observations": 1
+  },
+  {
+   "airline": "ASH",
+   "origin": "IAH",
+   "destination": "CVG",
+   "observations": 1
+  },
+  {
+   "airline": "ATC",
+   "origin": "NBO",
+   "destination": "DAR",
+   "observations": 1
+  },
+  {
+   "airline": "AVA",
+   "origin": "BOG",
+   "destination": "SMR",
+   "observations": 1
+  },
+  {
+   "airline": "AXB",
+   "origin": "PNQ",
+   "destination": "BLR",
+   "observations": 1
+  },
+  {
+   "airline": "AZU",
+   "origin": "GIG",
+   "destination": "POA",
+   "observations": 1
+  },
+  {
+   "airline": "BAW",
+   "origin": "LHR",
+   "destination": "NAP",
+   "observations": 1
+  },
+  {
+   "airline": "BAW",
+   "origin": "VIE",
+   "destination": "LHR",
+   "observations": 1
+  },
+  {
+   "airline": "BBG",
+   "origin": "TLV",
+   "destination": "RHO",
+   "observations": 1
+  },
+  {
+   "airline": "CES",
+   "origin": "VIE",
+   "destination": "XIY",
+   "observations": 1
+  },
+  {
+   "airline": "CFS",
+   "origin": "SMF",
+   "destination": "ACV",
+   "observations": 1
+  },
+  {
+   "airline": "CHH",
+   "origin": "CTU",
+   "destination": "PEK",
+   "observations": 1
+  },
+  {
+   "airline": "CSH",
+   "origin": "BKI",
+   "destination": "PVG",
+   "observations": 1
+  },
+  {
+   "airline": "CSZ",
+   "origin": "PEK",
+   "destination": "NTG",
+   "observations": 1
+  },
+  {
+   "airline": "CXI",
+   "origin": "HAJ",
+   "destination": "RMF",
+   "observations": 1
+  },
+  {
+   "airline": "DAL",
+   "origin": "ATL",
+   "destination": "CMH",
+   "observations": 1
+  },
+  {
+   "airline": "DAL",
+   "origin": "ATL",
+   "destination": "GRR",
+   "observations": 1
+  },
+  {
+   "airline": "DAL",
+   "origin": "BOS",
+   "destination": "DTW",
+   "observations": 1
+  },
+  {
+   "airline": "DAL",
+   "origin": "JFK",
+   "destination": "JAX",
+   "observations": 1
+  },
+  {
+   "airline": "DAL",
+   "origin": "RDU",
+   "destination": "BOS",
+   "observations": 1
+  },
+  {
+   "airline": "DAL",
+   "origin": "TPA",
+   "destination": "ATL",
+   "observations": 1
+  },
+  {
+   "airline": "EDV",
+   "origin": "DTW",
+   "destination": "CMH",
+   "observations": 1
+  },
+  {
+   "airline": "EJA",
+   "origin": "APF",
+   "destination": "BLM",
+   "observations": 1
+  },
+  {
+   "airline": "EJA",
+   "origin": "CLT",
+   "destination": "IAD",
+   "observations": 1
+  },
+  {
+   "airline": "EJA",
+   "origin": "DAL",
+   "destination": "PSP",
+   "observations": 1
+  },
+  {
+   "airline": "EJA",
+   "origin": "MPV",
+   "destination": "TEB",
+   "observations": 1
+  },
+  {
+   "airline": "ETD",
+   "origin": "AUH",
+   "destination": "SZX",
+   "observations": 1
+  },
+  {
+   "airline": "FDX",
+   "origin": "ANC",
+   "destination": "EWR",
+   "observations": 1
+  },
+  {
+   "airline": "FIA",
+   "origin": "PMF",
+   "destination": "RMO",
+   "observations": 1
+  },
+  {
+   "airline": "ICE",
+   "origin": "ARN",
+   "destination": "KEF",
+   "observations": 1
+  },
+  {
+   "airline": "IGO",
+   "origin": "PAT",
+   "destination": "BLR",
+   "observations": 1
+  },
+  {
+   "airline": "ITY",
+   "origin": "BRI",
+   "destination": "FCO",
+   "observations": 1
+  },
+  {
+   "airline": "ITY",
+   "origin": "LIN",
+   "destination": "REG",
+   "observations": 1
+  },
+  {
+   "airline": "JBU",
+   "origin": "BOS",
+   "destination": "CUN",
+   "observations": 1
+  },
+  {
+   "airline": "KLM",
+   "origin": "EZE",
+   "destination": "AMS",
+   "observations": 1
+  },
+  {
+   "airline": "KNE",
+   "origin": "AMM",
+   "destination": "JED",
+   "observations": 1
+  },
+  {
+   "airline": "LAN",
+   "origin": "SCL",
+   "destination": "GRU",
+   "observations": 1
+  },
+  {
+   "airline": "MAS",
+   "origin": "KUL",
+   "destination": "SYD",
+   "observations": 1
+  },
+  {
+   "airline": "NSZ",
+   "origin": "CPH",
+   "destination": "BER",
+   "observations": 1
+  },
+  {
+   "airline": "POE",
+   "origin": "YEG",
+   "destination": "YYZ",
+   "observations": 1
+  },
+  {
+   "airline": "ROT",
+   "origin": "OTP",
+   "destination": "BRU",
+   "observations": 1
+  },
+  {
+   "airline": "RYR",
+   "origin": "GDN",
+   "destination": "TGD",
+   "observations": 1
+  },
+  {
+   "airline": "RYR",
+   "origin": "SNN",
+   "destination": "KUN",
+   "observations": 1
+  },
+  {
+   "airline": "RYR",
+   "origin": "SVQ",
+   "destination": "RBA",
+   "observations": 1
+  },
+  {
+   "airline": "SKW",
+   "origin": "DEN",
+   "destination": "SAF",
+   "observations": 1
+  },
+  {
+   "airline": "SKW",
+   "origin": "GJT",
+   "destination": "SLC",
+   "observations": 1
+  },
+  {
+   "airline": "SKW",
+   "origin": "HPN",
+   "destination": "ATL",
+   "observations": 1
+  },
+  {
+   "airline": "SKW",
+   "origin": "ORD",
+   "destination": "HSV",
+   "observations": 1
+  },
+  {
+   "airline": "SKW",
+   "origin": "ORD",
+   "destination": "IND",
+   "observations": 1
+  },
+  {
+   "airline": "SWA",
+   "origin": "LAX",
+   "destination": "OAK",
+   "observations": 1
+  },
+  {
+   "airline": "SWA",
+   "origin": "PHX",
+   "destination": "SDF",
+   "observations": 1
+  },
+  {
+   "airline": "SWA",
+   "origin": "SEA",
+   "destination": "SJC",
+   "observations": 1
+  },
+  {
+   "airline": "SWA",
+   "origin": "SJC",
+   "destination": "AUS",
+   "observations": 1
+  },
+  {
+   "airline": "SWA",
+   "origin": "SJC",
+   "destination": "LAS",
+   "observations": 1
+  },
+  {
+   "airline": "TAP",
+   "origin": "BRU",
+   "destination": "LIS",
+   "observations": 1
+  },
+  {
+   "airline": "TBA",
+   "origin": "ZUH",
+   "destination": "CTU",
+   "observations": 1
+  },
+  {
+   "airline": "THY",
+   "origin": "IST",
+   "destination": "JFK",
+   "observations": 1
+  },
+  {
+   "airline": "THY",
+   "origin": "NRT",
+   "destination": "IST",
+   "observations": 1
+  },
+  {
+   "airline": "TLM",
+   "origin": "HDY",
+   "destination": "DMK",
+   "observations": 1
+  },
+  {
+   "airline": "TTW",
+   "origin": "DAD",
+   "destination": "KHH",
+   "observations": 1
+  },
+  {
+   "airline": "UAL",
+   "origin": "BZE",
+   "destination": "DEN",
+   "observations": 1
+  },
+  {
+   "airline": "UAL",
+   "origin": "EWR",
+   "destination": "HND",
+   "observations": 1
+  },
+  {
+   "airline": "UAL",
+   "origin": "IAH",
+   "destination": "BDL",
+   "observations": 1
+  },
+  {
+   "airline": "UAL",
+   "origin": "PHX",
+   "destination": "IAD",
+   "observations": 1
+  },
+  {
+   "airline": "UAL",
+   "origin": "SAT",
+   "destination": "SFO",
+   "observations": 1
+  },
+  {
+   "airline": "UPS",
+   "origin": "ONT",
+   "destination": "HNL",
+   "observations": 1
+  },
+  {
+   "airline": "UPS",
+   "origin": "PHL",
+   "destination": "DFW",
+   "observations": 1
+  },
+  {
+   "airline": "VIV",
+   "origin": "MTY",
+   "destination": "GDL",
+   "observations": 1
+  },
+  {
+   "airline": "VIV",
+   "origin": "NLU",
+   "destination": "TPQ",
+   "observations": 1
+  },
+  {
+   "airline": "VIV",
+   "origin": "REX",
+   "destination": "MEX",
+   "observations": 1
+  },
+  {
+   "airline": "VTE",
+   "origin": "ACK",
+   "destination": "OPF",
+   "observations": 1
+  },
+  {
+   "airline": "WMT",
+   "origin": "OTP",
+   "destination": "LEJ",
+   "observations": 1
+  }
+ ]
+}
