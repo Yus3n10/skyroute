@@ -5,7 +5,7 @@
  * EVERY leg belongs to it, which is a predicate over a path of unknown length, and
  * the result keeps just the best path per alliance.
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Users } from "lucide-react";
 import {
   ALLIANCE_CLASS,
@@ -16,7 +16,7 @@ import {
   type Airport,
   type AllianceId,
 } from "../api";
-import { Async, EmptyState, Panel, useAsync } from "../ui";
+import { Async, EmptyState, Panel, useAsync, useHashParams } from "../ui";
 import AirportPicker from "../AirportPicker";
 
 function stopsLabel(legCount: number): string {
@@ -25,8 +25,25 @@ function stopsLabel(legCount: number): string {
 }
 
 export default function Alliances({ airlines }: { airlines: Map<string, Airline> }) {
+  const [params, setParams] = useHashParams();
   const [origin, setOrigin] = useState<Airport | null>(null);
   const [destination, setDestination] = useState<Airport | null>(null);
+
+  // Same deal as the itinerary view: the city pair lives in the URL so a
+  // comparison can be linked to directly.
+  useEffect(() => {
+    const from = params.get("from");
+    const to = params.get("to");
+    if (from) api.airport(from).then((d) => setOrigin(d.airport)).catch(() => {});
+    if (to) api.airport(to).then((d) => setDestination(d.airport)).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const choose = (which: "from" | "to") => (airport: Airport | null) => {
+    if (which === "from") setOrigin(airport);
+    else setDestination(airport);
+    setParams({ [which]: airport?.iata ?? null });
+  };
 
   const ready = Boolean(origin && destination && origin.iata !== destination.iata);
   const comparison = useAsync(
@@ -40,8 +57,8 @@ export default function Alliances({ airlines }: { airlines: Map<string, Airline>
     <div className="space-y-4">
       <Panel title="Which alliance flies this route best?">
         <div className="grid gap-4 border-b border-line p-4 sm:grid-cols-2 lg:max-w-2xl">
-          <AirportPicker label="From" value={origin} onChange={setOrigin} />
-          <AirportPicker label="To" value={destination} onChange={setDestination} />
+          <AirportPicker label="From" value={origin} onChange={choose("from")} />
+          <AirportPicker label="To" value={destination} onChange={choose("to")} />
         </div>
 
         {!ready ? (
