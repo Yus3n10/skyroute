@@ -55,6 +55,36 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[], enabled = tru
   return { data, loading, error, reload };
 }
 
+/** Read and write the query string carried in the URL hash.
+ *
+ * The hash already selects the tab, so a search lives beside it as
+ * `#itineraries?from=MNL&to=LHR`. That makes a specific search shareable and
+ * survivable across a refresh, without pulling in a router for three tabs.
+ */
+export function useHashParams(): [URLSearchParams, (next: Record<string, string | null>) => void] {
+  const parse = () => new URLSearchParams(window.location.hash.split("?")[1] ?? "");
+  const [params, setParams] = useState(parse);
+
+  useEffect(() => {
+    const sync = () => setParams(parse());
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+
+  const update = useCallback((next: Record<string, string | null>) => {
+    const [tab] = window.location.hash.replace(/^#/, "").split("?");
+    const merged = new URLSearchParams(window.location.hash.split("?")[1] ?? "");
+    for (const [key, value] of Object.entries(next)) {
+      if (value) merged.set(key, value);
+      else merged.delete(key);
+    }
+    const query = merged.toString();
+    window.location.hash = query ? `${tab}?${query}` : tab;
+  }, []);
+
+  return [params, update];
+}
+
 /** Debounce a value so typing does not fire a query per keystroke against a
  *  0.5 vCPU instance. */
 export function useDebounced<T>(value: T, delay = 250): T {

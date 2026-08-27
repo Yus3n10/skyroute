@@ -4,7 +4,7 @@
  * optionally requiring every leg to belong to the same alliance, and ranks what it
  * finds by stops then total great-circle distance.
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Route, Search } from "lucide-react";
 import {
   ALLIANCE_LABELS,
@@ -14,7 +14,7 @@ import {
   type Airport,
   type Itinerary,
 } from "../api";
-import { AllianceChip, Async, Field, Panel, selectClass, useAsync } from "../ui";
+import { AllianceChip, Async, Field, Panel, selectClass, useAsync, useHashParams } from "../ui";
 import AirportPicker from "../AirportPicker";
 
 const LEG_OPTIONS = [
@@ -92,10 +92,29 @@ function Chain({
 }
 
 export default function Itineraries({ airlines }: { airlines: Map<string, Airline> }) {
+  const [params, setParams] = useHashParams();
   const [origin, setOrigin] = useState<Airport | null>(null);
   const [destination, setDestination] = useState<Airport | null>(null);
-  const [maxLegs, setMaxLegs] = useState(2);
-  const [alliance, setAlliance] = useState("");
+  const [maxLegs, setMaxLegs] = useState(() => Number(params.get("legs")) || 2);
+  const [alliance, setAlliance] = useState(() => params.get("alliance") ?? "");
+
+  // Rehydrate the pickers from the URL on first load, so a shared link opens on
+  // the search it names. Only codes travel in the URL; the airport records are
+  // fetched once here rather than being serialised into the link.
+  useEffect(() => {
+    const from = params.get("from");
+    const to = params.get("to");
+    if (from && !origin) api.airport(from).then((d) => setOrigin(d.airport)).catch(() => {});
+    if (to && !destination) api.airport(to).then((d) => setDestination(d.airport)).catch(() => {});
+    // Intentionally first-load only: after this the pickers own the state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const choose = (which: "from" | "to") => (airport: Airport | null) => {
+    if (which === "from") setOrigin(airport);
+    else setDestination(airport);
+    setParams({ [which]: airport?.iata ?? null });
+  };
 
   const ready = Boolean(origin && destination && origin.iata !== destination.iata);
 
@@ -107,16 +126,16 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
 
   return (
     <div className="grid gap-4 lg:grid-cols-[340px_1fr]">
-      <Panel title="Plan a trip" className="h-fit">
+      <Panel title="Find a route" className="h-fit">
         <div className="space-y-4 p-4">
-          <AirportPicker label="From" value={origin} onChange={setOrigin} />
-          <AirportPicker label="To" value={destination} onChange={setDestination} />
+          <AirportPicker label="From" value={origin} onChange={choose("from")} />
+          <AirportPicker label="To" value={destination} onChange={choose("to")} />
 
           <Field label="Stops">
             <select
               className={selectClass}
               value={maxLegs}
-              onChange={(e) => setMaxLegs(Number(e.target.value))}
+              onChange={(e) => { setMaxLegs(Number(e.target.value)); setParams({ legs: e.target.value }); }}
             >
               {LEG_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>
@@ -130,7 +149,7 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
             <select
               className={selectClass}
               value={alliance}
-              onChange={(e) => setAlliance(e.target.value)}
+              onChange={(e) => { setAlliance(e.target.value); setParams({ alliance: e.target.value || null }); }}
             >
               {ALLIANCE_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>

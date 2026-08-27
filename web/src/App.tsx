@@ -16,7 +16,7 @@ const TABS = [
     id: "itineraries",
     label: "Itineraries",
     icon: Route,
-    blurb: "Find every way the network connects two airports.",
+    blurb: "Find every way the observed network connects two airports.",
   },
   {
     id: "alliances",
@@ -40,7 +40,9 @@ const isTab = (value: string): value is TabId => TABS.some((t) => t.id === value
  *  works. Cheaper than a router for three tabs, and it survives a refresh. */
 function useHashTab() {
   const read = (): TabId => {
-    const raw = window.location.hash.replace(/^#/, "");
+    // The hash may carry a query string too (`#itineraries?from=MNL`), so the tab
+    // is only the part before the `?`.
+    const raw = window.location.hash.replace(/^#/, "").split("?")[0];
     return isTab(raw) ? raw : "itineraries";
   };
   const [tab, setTab] = useState<TabId>(read);
@@ -144,9 +146,10 @@ export default function App() {
 
       <footer className="mx-auto max-w-7xl px-4 py-8 text-xs leading-relaxed text-ink-faint sm:px-6">
         Routes are observed via ADS-B rather than taken from a published schedule,
-        so coverage follows receiver density and this is not a complete picture of
-        any airline&rsquo;s network. Airports from OurAirports; alliance membership
-        from the alliances&rsquo; own published member lists.
+        so coverage follows receiver density, this is not a complete picture of any
+        airline&rsquo;s network, and cargo and charter operators appear alongside
+        passenger airlines. Airports from OurAirports; alliance membership from the
+        alliances&rsquo; own published member lists.
       </footer>
     </div>
   );
