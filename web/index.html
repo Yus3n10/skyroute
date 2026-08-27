@@ -3,12 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>SkyRoute - the live airline network as a graph</title>
-    <meta name="description" content="Find itineraries, compare airline alliances and explore airport reach across a route network built from live flight observations." />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#9992;</text></svg>" />
+    <meta
+      name="description"
+      content="Find itineraries, compare airline alliances and explore airport reach across a route network built from live flight observations."
+    />
+    <meta name="theme-color" content="#fbf7f0" />
+
+    <!-- Icons. The mark is not square, so these are pre-padded onto a square
+         canvas rather than left for the browser to stretch. -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Social preview. Scrapers do not run JavaScript and do not resolve relative
+         URLs, so og:image has to be absolute. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SkyRoute" />
+    <meta property="og:title" content="SkyRoute - airline network exploration" />
+    <meta
+      property="og:description"
+      content="Explore routes, alliances and multi-stop itineraries as a graph, built from flights actually observed in the air."
+    />
+    <meta property="og:url" content="https://skyroute-5qin.onrender.com/" />
+    <meta property="og:image" content="https://skyroute-5qin.onrender.com/social-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="658" />
+    <meta
+      property="og:image:alt"
+      content="SkyRoute: airline network exploration, with a diagram of airports, airlines and an alliance connected as a graph."
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SkyRoute - airline network exploration" />
+    <meta
+      name="twitter:description"
+      content="Explore routes, alliances and multi-stop itineraries as a graph, built from flights actually observed in the air."
+    />
+    <meta name="twitter:image" content="https://skyroute-5qin.onrender.com/social-preview.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>

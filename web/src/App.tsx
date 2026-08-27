@@ -73,13 +73,25 @@ export default function App() {
       <header className="border-b-2 border-rule bg-paper">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 pt-5 pb-3">
-            <div>
-              <h1 className="font-display text-4xl leading-none text-ink sm:text-5xl">
-                SkyRoute
-              </h1>
-              <p className="mt-1.5 max-w-md text-sm text-ink-dim">
-                The world&rsquo;s airline network, as it was actually flying.
-              </p>
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* The mark is the wordmark's partner, not a substitute for it, so it
+                  is decorative and the <h1> still carries the accessible name. */}
+              <img
+                src="/logo.png"
+                alt=""
+                aria-hidden="true"
+                width={56}
+                height={56}
+                className="h-12 w-12 shrink-0 sm:h-16 sm:w-16"
+              />
+              <div>
+                <h1 className="font-display text-4xl leading-none text-ink sm:text-5xl">
+                  SkyRoute
+                </h1>
+                <p className="mt-1.5 max-w-md text-sm text-ink-dim">
+                  The world&rsquo;s airline network, as it was actually flying.
+                </p>
+              </div>
             </div>
 
             {stats.data && (
