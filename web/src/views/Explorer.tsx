@@ -42,7 +42,7 @@ export default function Explorer() {
           {!selected ? (
             <EmptyState
               title="Start somewhere"
-              body="Pick an airport to see everywhere it flies directly, and how much of the world opens up in one or two hops."
+              body="Pick an airport to see everywhere it flies directly, and how much of the world opens up if you accept a stop or two."
             />
           ) : (
             <>
@@ -162,7 +162,11 @@ export default function Explorer() {
         <Panel
           title="Reach"
           subtitle={
-            selected ? `Countries within ${legs} ${legs === 1 ? "leg" : "legs"} of ${selected}` : undefined
+            selected
+              ? `Countries you can get to from ${selected} ${
+                  legs === 1 ? "on a direct flight" : `with up to ${legs - 1} stop${legs > 2 ? "s" : ""}`
+                }`
+              : undefined
           }
         >
           {!selected ? (
@@ -172,15 +176,15 @@ export default function Explorer() {
           ) : (
             <>
               <div className="border-b-2 border-rule-soft p-4">
-                <Field label="Maximum legs">
+                <Field label="Trip length">
                   <select
                     className={selectClass}
                     value={legs}
                     onChange={(e) => setLegs(Number(e.target.value))}
                   >
-                    <option value={1}>1 leg, direct only</option>
-                    <option value={2}>2 legs, one connection</option>
-                    <option value={3}>3 legs, two connections</option>
+                    <option value={1}>Direct flights only</option>
+                    <option value={2}>Up to 1 stop</option>
+                    <option value={3}>Up to 2 stops</option>
                   </select>
                 </Field>
               </div>
@@ -201,15 +205,17 @@ export default function Explorer() {
                         key={row.countryCode}
                         className="flex items-center gap-3 border-b border-rule-soft px-4 py-1.5 text-sm last:border-b-0"
                       >
-                        <span
-                          className="w-5 shrink-0 text-center font-mono text-xs font-bold text-air-red tnum"
-                          title={`Fewest legs to reach ${row.country}`}
-                        >
-                          {row.fewestLegs}
-                        </span>
                         <span className="min-w-0 flex-1 truncate text-ink">{row.country}</span>
-                        <span className="font-mono text-[11px] text-ink-faint tnum">
-                          {row.airports}
+                        <span className="shrink-0 text-[11px] text-air-red">
+                          {row.fewestLegs === 1
+                            ? "direct"
+                            : `${row.fewestLegs - 1} stop${row.fewestLegs > 2 ? "s" : ""}`}
+                        </span>
+                        <span
+                          className="w-14 shrink-0 text-right font-mono text-[11px] text-ink-faint tnum"
+                          title={`${row.airports} airport${row.airports === 1 ? "" : "s"} reachable`}
+                        >
+                          {row.airports} {row.airports === 1 ? "airport" : "airports"}
                         </span>
                       </li>
                     ))}
@@ -220,7 +226,7 @@ export default function Explorer() {
           )}
         </Panel>
 
-        <Panel title="Busiest hubs" subtitle="By distinct destinations in this dataset">
+        <Panel title="Busiest airports" subtitle="By number of places you can fly to directly">
           <Async
             state={hubs}
             skeletonRows={5}

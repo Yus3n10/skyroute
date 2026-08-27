@@ -167,7 +167,7 @@ export const ALLIANCE_LABELS: Record<AllianceId, string> = {
   "star-alliance": "Star Alliance",
   oneworld: "oneworld",
   skyteam: "SkyTeam",
-  none: "Unaligned",
+  none: "No alliance",
 };
 
 /** One place decides how an alliance reads, so the colour never drifts.

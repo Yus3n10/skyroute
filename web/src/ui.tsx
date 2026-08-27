@@ -171,7 +171,7 @@ export function ErrorState({ error, onRetry }: { error: ApiError; onRetry?: () =
   return (
     <div role="alert" className="px-6 py-14 text-center">
       {/* Stamped like a rejected form, because that is what happened. */}
-      <p className="stamp mx-auto inline-block -rotate-2 px-3 py-1 text-sm text-air-red">
+      <p className="stamp mx-auto inline-block px-3 py-1 text-sm text-air-red">
         {dbDown ? "No connection" : "Error"}
       </p>
       <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink">{error.message}</p>
@@ -222,6 +222,36 @@ export function AllianceChip({ alliance, size = "sm" }: { alliance: AllianceId; 
     >
       {ALLIANCE_LABELS[alliance]}
     </span>
+  );
+}
+
+/** A collapsed help note.
+ *
+ * Built on native <details> so it is keyboard accessible and needs no state. It
+ * exists because the explanation it holds used to sit permanently on the page,
+ * where it read as filler and leaned on internal vocabulary. Help should be
+ * available on demand, not narrated at everyone.
+ */
+export function HelpNote({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <details className="group border-t-2 border-rule-soft pt-3">
+      <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-xs font-semibold text-ink-dim hover:text-ink">
+        <span
+          aria-hidden="true"
+          className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-current text-[10px] leading-none"
+        >
+          ?
+        </span>
+        {label}
+        <span aria-hidden="true" className="ml-auto text-ink-faint group-open:hidden">
+          Show
+        </span>
+        <span aria-hidden="true" className="ml-auto hidden text-ink-faint group-open:inline">
+          Hide
+        </span>
+      </summary>
+      <div className="mt-2 space-y-2 text-xs leading-relaxed text-ink-dim">{children}</div>
+    </details>
   );
 }
 

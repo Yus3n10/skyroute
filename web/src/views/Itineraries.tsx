@@ -23,6 +23,7 @@ import {
   Caption,
   EmptyState,
   Field,
+  HelpNote,
   Panel,
   selectClass,
   useAsync,
@@ -31,7 +32,7 @@ import {
 import AirportPicker from "../AirportPicker";
 
 const LEG_OPTIONS = [
-  { value: 1, label: "Direct only" },
+  { value: 1, label: "Direct flights only" },
   { value: 2, label: "Up to 1 stop" },
   { value: 3, label: "Up to 2 stops" },
 ];
@@ -214,7 +215,7 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
             </select>
           </Field>
 
-          <Field label="Alliance">
+          <Field label="Airline partnership">
             <select
               className={selectClass}
               value={alliance}
@@ -237,11 +238,18 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
             </p>
           )}
 
-          <p className="border-t-2 border-rule-soft pt-3 text-xs leading-relaxed text-ink-faint">
-            Each stop is one FLIES_TO hop. Choosing an alliance makes every leg satisfy
-            the same constraint, which is a rule about the whole path rather than any
-            single flight.
-          </p>
+          <HelpNote label="How this works">
+            <p>
+              A direct flight is one plane. Each extra stop means changing planes at
+              another airport along the way.
+            </p>
+            <p>
+              Airlines group themselves into three big partnerships: Star Alliance,
+              oneworld and SkyTeam. Sticking to one of them is how frequent flyers earn
+              and keep their status. Picking one here only shows trips where{" "}
+              <em>every</em> flight is with that partnership.
+            </p>
+          </HelpNote>
         </div>
       </Panel>
 
@@ -257,7 +265,7 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
         {!ready ? (
           <EmptyState
             title="Where to?"
-            body="Choose an origin and a destination, and the graph will find every way the observed network connects them."
+            body="Choose where you are flying from and to. You will get every way to make the trip, direct or with a stop along the way."
           />
         ) : (
           <Async
@@ -269,8 +277,8 @@ export default function Itineraries({ airlines }: { airlines: Map<string, Airlin
                 title="Nothing connects"
                 body={
                   alliance
-                    ? `No ${ALLIANCE_LABELS[alliance as keyof typeof ALLIANCE_LABELS]} itinerary links these airports within this many stops. Try any airline, or allow one more stop.`
-                    : "No itinerary links these airports within this many stops. Try allowing one more stop."
+                    ? `Nothing links these two airports on ${ALLIANCE_LABELS[alliance as keyof typeof ALLIANCE_LABELS]} within this many stops. Try Any airline, or allow one more stop.`
+                    : "Nothing links these two airports within this many stops. Try allowing one more stop."
                 }
               />
             }

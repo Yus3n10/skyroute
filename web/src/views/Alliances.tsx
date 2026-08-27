@@ -15,7 +15,7 @@ import {
   type Airport,
   type AllianceId,
 } from "../api";
-import { Async, Caption, EmptyState, Panel, useAsync, useHashParams } from "../ui";
+import { Async, Caption, EmptyState, HelpNote, Panel, useAsync, useHashParams } from "../ui";
 import AirportPicker from "../AirportPicker";
 
 function stopsLabel(legCount: number): string {
@@ -54,16 +54,33 @@ export default function Alliances({ airlines }: { airlines: Map<string, Airline>
 
   return (
     <div className="space-y-5">
-      <Panel className="min-w-0" title="Which alliance flies this best?">
-        <div className="grid gap-4 border-b-2 border-rule-soft p-4 sm:grid-cols-2 lg:max-w-xl">
-          <AirportPicker label="From" value={origin} onChange={choose("from")} />
-          <AirportPicker label="To" value={destination} onChange={choose("to")} />
+      <Panel className="min-w-0" title="Which airline partnership flies this best?">
+        <div className="border-b-2 border-rule-soft p-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:max-w-xl">
+            <AirportPicker label="From" value={origin} onChange={choose("from")} />
+            <AirportPicker label="To" value={destination} onChange={choose("to")} />
+          </div>
+          <div className="mt-4 lg:max-w-xl">
+            <HelpNote label="What is an airline alliance?">
+              <p>
+                Most large airlines belong to one of three global partnerships: Star
+                Alliance, oneworld or SkyTeam. Member airlines sell each other&rsquo;s
+                seats, share lounges, and let you earn and spend points across the whole
+                group.
+              </p>
+              <p>
+                That is why it matters which one a trip uses. A journey that stays inside
+                a single partnership keeps your points and status the whole way, even
+                when you change planes onto a different airline.
+              </p>
+            </HelpNote>
+          </div>
         </div>
 
         {!ready ? (
           <EmptyState
             title="Pick a city pair"
-            body="The graph will find the best itinerary each alliance can offer, where every leg stays inside that alliance."
+            body="Pick where you are flying from and to. You will get the best trip each of the three partnerships can offer, using only their own member airlines the whole way."
           />
         ) : (
           <Async
@@ -73,7 +90,7 @@ export default function Alliances({ airlines }: { airlines: Map<string, Airline>
             empty={
               <EmptyState
                 title="No alliance covers this"
-                body="No single alliance connects these airports within two stops. A mixed-airline itinerary may still exist, so try the Itineraries tab with any airline."
+                body="No single partnership connects these two airports within two stops. There may still be a route that mixes airlines, so try the Itineraries tab with Any airline."
               />
             }
           >
@@ -84,7 +101,7 @@ export default function Alliances({ airlines }: { airlines: Map<string, Airline>
                   return (
                     <li key={alliance} className="card-flat">
                       <div className="flex items-baseline justify-between gap-2 border-b-2 border-rule px-3 py-2">
-                        <h3 className={`stamp -rotate-1 px-1.5 py-0.5 text-[11px] ${tone}`}>
+                        <h3 className={`stamp px-1.5 py-0.5 text-[11px] ${tone}`}>
                           {ALLIANCE_LABELS[alliance as AllianceId]}
                         </h3>
                         <span className="font-mono text-xs font-bold text-ink tnum">
@@ -136,8 +153,8 @@ export default function Alliances({ airlines }: { airlines: Map<string, Airline>
       </Panel>
 
       <Panel
-        title="The three alliances"
-        subtitle="Counted from routes observed in this dataset, not published network size"
+        title="The three partnerships"
+        subtitle="Counted from flights seen in this dataset, not published network size"
       >
         <Async
           state={overview}
@@ -152,7 +169,7 @@ export default function Alliances({ airlines }: { airlines: Map<string, Airline>
               {rows.map((alliance) => (
                 <li key={alliance.id} className="card-flat p-4">
                   <h3
-                    className={`stamp inline-block -rotate-1 px-2 py-1 text-xs ${
+                    className={`stamp inline-block px-2 py-1 text-xs ${
                       ALLIANCE_CLASS[alliance.id]
                     }`}
                   >
