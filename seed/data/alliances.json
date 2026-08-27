@@ -1,0 +1,81 @@
+{
+  "_source": "Membership taken from the Wikipedia articles for Star Alliance, Oneworld and SkyTeam, read 2026-08-27. ICAO/IATA codes cross-checked against the OpenFlights airline registry by seed/check_alliances.py.",
+  "_note": "Alliance membership changes. Known recent moves reflected here: SAS left Star Alliance for SkyTeam (Sept 2024), ITA Airways left SkyTeam for Star Alliance (2025), Hawaiian joined oneworld (April 2026). Aeroflot and S7 are suspended and are not treated as members.",
+  "alliances": [
+    { "id": "star-alliance", "name": "Star Alliance", "founded": 1997 },
+    { "id": "oneworld", "name": "oneworld", "founded": 1999 },
+    { "id": "skyteam", "name": "SkyTeam", "founded": 2000 }
+  ],
+  "members": {
+    "star-alliance": [
+      { "name": "Aegean Airlines", "icao": "AEE", "iata": "A3" },
+      { "name": "Air Canada", "icao": "ACA", "iata": "AC" },
+      { "name": "Air China", "icao": "CCA", "iata": "CA" },
+      { "name": "Air India", "icao": "AIC", "iata": "AI" },
+      { "name": "Air New Zealand", "icao": "ANZ", "iata": "NZ" },
+      { "name": "All Nippon Airways", "icao": "ANA", "iata": "NH" },
+      { "name": "Asiana Airlines", "icao": "AAR", "iata": "OZ" },
+      { "name": "Austrian Airlines", "icao": "AUA", "iata": "OS" },
+      { "name": "Avianca", "icao": "AVA", "iata": "AV" },
+      { "name": "Brussels Airlines", "icao": "BEL", "iata": "SN" },
+      { "name": "Copa Airlines", "icao": "CMP", "iata": "CM" },
+      { "name": "Croatia Airlines", "icao": "CTN", "iata": "OU" },
+      { "name": "EgyptAir", "icao": "MSR", "iata": "MS" },
+      { "name": "Ethiopian Airlines", "icao": "ETH", "iata": "ET" },
+      { "name": "EVA Air", "icao": "EVA", "iata": "BR" },
+      { "name": "ITA Airways", "icao": "ITY", "iata": "AZ" },
+      { "name": "LOT Polish Airlines", "icao": "LOT", "iata": "LO" },
+      { "name": "Lufthansa", "icao": "DLH", "iata": "LH" },
+      { "name": "Shenzhen Airlines", "icao": "CSZ", "iata": "ZH" },
+      { "name": "Singapore Airlines", "icao": "SIA", "iata": "SQ" },
+      { "name": "South African Airways", "icao": "SAA", "iata": "SA" },
+      { "name": "Swiss International Air Lines", "icao": "SWR", "iata": "LX" },
+      { "name": "TAP Air Portugal", "icao": "TAP", "iata": "TP" },
+      { "name": "Thai Airways International", "icao": "THA", "iata": "TG" },
+      { "name": "Turkish Airlines", "icao": "THY", "iata": "TK" },
+      { "name": "United Airlines", "icao": "UAL", "iata": "UA" }
+    ],
+    "oneworld": [
+      { "name": "Alaska Airlines", "icao": "ASA", "iata": "AS" },
+      { "name": "American Airlines", "icao": "AAL", "iata": "AA" },
+      { "name": "British Airways", "icao": "BAW", "iata": "BA" },
+      { "name": "Cathay Pacific", "icao": "CPA", "iata": "CX" },
+      { "name": "Fiji Airways", "icao": "FJI", "iata": "FJ" },
+      { "name": "Finnair", "icao": "FIN", "iata": "AY" },
+      { "name": "Hawaiian Airlines", "icao": "HAL", "iata": "HA" },
+      { "name": "Iberia", "icao": "IBE", "iata": "IB" },
+      { "name": "Japan Airlines", "icao": "JAL", "iata": "JL" },
+      { "name": "Malaysia Airlines", "icao": "MAS", "iata": "MH" },
+      { "name": "Oman Air", "icao": "OMA", "iata": "WY" },
+      { "name": "Qantas", "icao": "QFA", "iata": "QF" },
+      { "name": "Qatar Airways", "icao": "QTR", "iata": "QR" },
+      { "name": "Royal Air Maroc", "icao": "RAM", "iata": "AT" },
+      { "name": "Royal Jordanian", "icao": "RJA", "iata": "RJ" },
+      { "name": "SriLankan Airlines", "icao": "ALK", "iata": "UL" }
+    ],
+    "skyteam": [
+      { "name": "Aerolineas Argentinas", "icao": "ARG", "iata": "AR" },
+      { "name": "Aeromexico", "icao": "AMX", "iata": "AM" },
+      { "name": "Air Europa", "icao": "AEA", "iata": "UX" },
+      { "name": "Air France", "icao": "AFR", "iata": "AF" },
+      { "name": "China Airlines", "icao": "CAL", "iata": "CI" },
+      { "name": "China Eastern Airlines", "icao": "CES", "iata": "MU" },
+      { "name": "Delta Air Lines", "icao": "DAL", "iata": "DL" },
+      { "name": "Garuda Indonesia", "icao": "GIA", "iata": "GA" },
+      { "name": "Kenya Airways", "icao": "KQA", "iata": "KQ" },
+      { "name": "KLM Royal Dutch Airlines", "icao": "KLM", "iata": "KL" },
+      { "name": "Korean Air", "icao": "KAL", "iata": "KE" },
+      { "name": "Middle East Airlines", "icao": "MEA", "iata": "ME" },
+      { "name": "Saudia", "icao": "SVA", "iata": "SV" },
+      { "name": "Scandinavian Airlines", "icao": "SAS", "iata": "SK" },
+      { "name": "TAROM", "icao": "ROT", "iata": "RO" },
+      { "name": "Vietnam Airlines", "icao": "HVN", "iata": "VN" },
+      { "name": "Virgin Atlantic", "icao": "VIR", "iata": "VS" },
+      { "name": "XiamenAir", "icao": "CXA", "iata": "MF" }
+    ]
+  },
+  "suspended": [
+    { "name": "Aeroflot", "icao": "AFL", "iata": "SU", "alliance": "skyteam", "since": "2022-04-28" },
+    { "name": "S7 Airlines", "icao": "SBI", "iata": "S7", "alliance": "oneworld", "since": "2022-04-19" }
+  ]
+}

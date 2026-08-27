@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* Design tokens. Semantic names only - no component reaches for a raw hex.
+   The alliance colours carry meaning rather than decoration, so every place they
+   are used also names the alliance in text: the hue is reinforcement, never the
+   only signal. */
+@theme {
+  --color-bg: #0a1020;
+  --color-surface: #121a2e;
+  --color-surface-2: #1b2440;
+  --color-line: #253052;
+  --color-line-bright: #35426e;
+
+  --color-ink: #e8ecf7;
+  --color-ink-dim: #9aa5c4;
+  --color-ink-faint: #6a7699;
+
+  --color-brand: #38bdf8;
+  --color-brand-bright: #7dd3fc;
+  --color-brand-dim: #0c4a6e;
+
+  --color-star: #fbbf24;
+  --color-oneworld: #60a5fa;
+  --color-skyteam: #c084fc;
+  --color-unaligned: #64748b;
+
+  --font-display: "Barlow Condensed", "Segoe UI", sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Consolas", monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Distances and codes sit in columns. Tabular figures stop them jittering. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-bright);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-line-bright);
+  }
+}
+
+@layer utilities {
+  /* One shared entrance. Short, and it disappears entirely for anyone who has
+     asked their system to stop moving things. */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .animate-rise {
+    animation: rise 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

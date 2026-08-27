@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+web/dist/
+.DS_Store
+.vscode/
+
+# Full OurAirports dump - seed/refresh_airports.py trims it into data/airports.csv
+seed/data/ourairports.csv
+seed/data/callsign-queue.json
+seed/data/callsign-cache.json
+*.tsbuildinfo
