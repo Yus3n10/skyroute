@@ -549,4 +549,21 @@ so number columns do not jitter as values change.
 
 ## Screenshots
 
-_Filled in below once the graph is loaded._
+**Itineraries.** Every way the observed network gets you from Atlanta to Amsterdam,
+ranked by stops then total distance. Each result is a boarding pass: the stub carries
+the headline numbers, and each leg names its airline and partnership.
+
+![Itineraries](docs/itineraries.png)
+
+**Alliances.** The comparison the project exists for. On JFK to London, oneworld
+flies it direct in 5,540 km; staying inside SkyTeam costs a stop in Las Vegas and
+12,004 km, and Star Alliance routes through Bogota for 12,470 km. Same city pair,
+three very different answers, and the constraint that produces them applies to every
+flight in the trip rather than to any one of them.
+
+![Alliance comparison](docs/alliances.png)
+
+**Airports.** Direct destinations from one airport, which countries open up within a
+stop, and the busiest airports in the sample.
+
+![Airport explorer](docs/explorer.png)
